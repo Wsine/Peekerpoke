@@ -1,7 +1,5 @@
 # Peekerpoke
 
-----------
-
 ## 导读
 
 一个基于[Named Data Networking Forwarding Daemon](http://named-data.net/doc/NFD/current/)的项目
@@ -9,8 +7,6 @@
 可以查看[备忘录](https://github.com/Wsine/Peekerpoke/wiki)
 
 注意：使用UTF-8编码方式打开文件
-
-----------
 
 ## Workflow
 

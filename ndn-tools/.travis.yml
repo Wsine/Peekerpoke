@@ -1,0 +1,19 @@
+sudo: true
+language: cpp
+os:
+  - linux
+  - osx
+compiler:
+  - gcc
+  - clang
+matrix:
+  exclude:
+    - os: linux
+      compiler: clang
+    - os: osx
+      compiler: gcc
+script:
+  - if [[ $TRAVIS_OS_NAME == linux ]]; then export NODE_LABELS="Linux Ubuntu Ubuntu-12.04"; fi
+  - if [[ $TRAVIS_OS_NAME == osx ]]; then export NODE_LABELS="OSX OSX-10.10"; fi
+  - echo $NODE_LABELS
+  - ./.jenkins

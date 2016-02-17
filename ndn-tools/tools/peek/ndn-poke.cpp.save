@@ -1,0 +1,533 @@
+/* -*- Mode:C++; c-file-style:"gnu"; indent-tabs-mode:nil; -*- */
+/**
+ * Copyright (c) 2014-2015,  Regents of the University of California,
+ *                           Arizona Board of Regents,
+ *                           Colorado State University,
+ *                           University Pierre & Marie Curie, Sorbonne University,
+ *                           Washington University in St. Louis,
+ *                           Beijing Institute of Technology,
+ *                           The University of Memphis.
+ *
+ * This file is part of ndn-tools (Named Data Networking Essential Tools).
+ * See AUTHORS.md for complete list of ndn-tools authors and contributors.
+ *
+ * ndn-tools is free software: you can redistribute it and/or modify it under the terms
+ * of the GNU General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ *
+ * ndn-tools is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ * PURPOSE.  See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * ndn-tools, e.g., in COPYING.md file.  If not, see <http://www.gnu.org/licenses/>.
+ */
+/**
+ * Copyright (c) 2014,  Regents of the University of California,
+ *                      Arizona Board of Regents,
+ *                      Colorado State University,
+ *                      University Pierre & Marie Curie, Sorbonne University,
+ *                      Washington University in St. Louis,
+ *                      Beijing Institute of Technology,
+ *                      The University of Memphis
+ *
+ * This file is part of NFD (Named Data Networking Forwarding Daemon).
+ * See AUTHORS.md for complete list of NFD authors and contributors.
+ *
+ * NFD is free software: you can redistribute it and/or modify it under the terms
+ * of the GNU General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ *
+ * NFD is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ * PURPOSE.  See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * NFD, e.g., in COPYING.md file.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @author Jerald Paul Abraham <jeraldabraham@email.arizona.edu>
+ */
+
+#include "core/version.hpp"
+#include <fstream>
+#include <sstream>
+#include "time.h"
+
+namespace ndn {
+namespace peek {
+
+class NdnPoke : boost::noncopyable
+{
+public:
+  explicit
+  NdnPoke(char* programName)
+    : m_programName(programName)
+    , m_isForceDataSet(false)
+    , m_isUseDigestSha256Set(false)
+    , m_isLastAsFinalBlockIdSet(false)
+    , m_freshnessPeriod(-1)
+    , m_timeout(-1)
+    , m_isDataSent(false)
+  {
+  }
+
+  void
+  usage()
+  {
+    std::cout << "NO.1 Car" << std::endl;
+    exit(1);
+  }
+
+  
+  void
+  setForceData()
+  {
+    m_isForceDataSet = true;
+  }
+
+  
+  void
+  setUseDigestSha256()
+  {
+    m_isUseDigestSha256Set = true;
+  }
+
+  
+  void
+  setIdentityName(char* identityName)
+  {
+    m_identityName = make_shared<Name>(identityName);
+  }
+
+  
+  void
+  setLastAsFinalBlockId()
+  {
+    m_isLastAsFinalBlockIdSet = true;
+  }
+
+  
+  void
+  setFreshnessPeriod(int freshnessPeriod)
+  {
+    if (freshnessPeriod < 0)
+      usage();
+
+    m_freshnessPeriod = time::milliseconds(freshnessPeriod);
+  }
+
+  
+  void
+  setTimeout(int timeout)
+  {
+    if (timeout < 0)
+      usage();
+
+    m_timeout = time::milliseconds(timeout);
+  }
+
+  
+  void
+  setPrefixName(char* prefixName)
+  {
+    m_prefixName = Name(prefixName);
+  }
+
+  time::milliseconds
+  getDefaultTimeout()
+  {
+    return time::seconds(10);
+  }
+  
+  
+/* Designed by LiBoyang on August 4th,  2015
+   * This function is used to get the number of the place according to the interest name.
+   * We should update the MapInf.txt after we receive the newest information from other cars.
+   */
+  int GetNumOfPlace(Name GetInterestName)  {
+	  int result = -1;
+	  if  (GetInterestName == "/place/1")  {
+		  result = 1;
+	  }
+	  else if  (GetInterestName == "/place/2")  {
+		  result = 2;
+	  }
+	  else if  (GetInterestName == "/place/3")  {
+		  result = 3;
+	  }
+	  else if  (GetInterestName == "/place/4")  {
+		  result = 4;
+	  }
+	  else if  (GetInterestName == "/place/5")  {
+		  result = 5;
+	  }
+	  else if  (GetInterestName == "/place/6")  {
+		  result = 6;
+	  }
+	  else if  (GetInterestName == "/place/7")  {
+		  result = 7;
+	  }
+	  else if  (GetInterestName == "/place/8")  {
+		  result = 8;
+	  }
+	  else if  (GetInterestName == "/place/9")  {
+		  result = 9;
+	  }
+	  else if  (GetInterestName == "/place/10")  {
+		  result = 10;
+	  }
+	  else if  (GetInterestName == "/place/11")  {
+		  result = 11;
+	  }
+	  else if  (GetInterestName == "/place/12")  {
+		  result = 12;
+	  }
+	  else if  (GetInterestName == "/place/13")  {
+		  result = 13;
+	  }
+	  else if  (GetInterestName == "/place/14")  {
+		  result = 14;
+	  }
+	  else if  (GetInterestName == "/place/15")  {
+		  result = 15;
+	  }
+	  else if  (GetInterestName == "/place/16")  {
+		  result = 16;
+	  }
+	  return result;
+  }
+  
+  
+  void
+  onTimeout(const Interest& interest)
+  {
+	  std::cout << "Should not execute here." << std::endl << std::endl;
+  }
+  
+  
+  /* Modified by LiBoyang on August 19th,  2015 */
+  Interest
+  createInterestPacket(std::string m_name)
+  {
+    Name interestName(m_name);
+    Interest interestPacket(interestName);
+    interestPacket.setMustBeFresh(true);
+    interestPacket.setInterestLifetime(time::seconds(4));
+    return interestPacket;
+  }
+  
+  
+  /* Modified by LiBoyang on August 10th,  2015 
+   * This function is used to read the information from file and make it as a data packet.
+   *
+   */
+  shared_ptr<Data>
+  createDataPacket(Name GetInterestName,  Name content)
+  {
+    auto dataPacket = make_shared<Data>(GetInterestName);
+
+    std::string payload = "Data from NO.1 Car Default";
+	std::string readFromFile;
+	std::ifstream fin;
+	fin.open("MapInf.txt");
+	int result = GetNumOfPlace(content);
+	int counter = 0;
+	while(1)  {
+		getline(fin,  readFromFile);
+		if  (result == -1)  {
+			payload = "Read File Failed";
+			break;
+		}
+		counter++;
+		if  (counter == result)  {
+			//payload = "Information from NO.0 Car: " + readFromFile + " " + time::toIsoString(time::system_clock::now());
+			payload = readFromFile;
+			payload += "/";
+			/*  Something about time stamp. */
+
+			std::string timeStamp = time::toIsoString(time::system_clock::now());
+
+			//time_t now;
+			//struct tm  *w;  
+			//time(&now);  
+			//w=localtime(&now);
+            //long timeStamp = now;			
+			payload += timeStamp;
+			payload += "/";
+			payload += thisCarNumber;
+			break;
+		}
+		if  (counter > 16)  {
+			payload = "Read File Failed";
+			break;
+		}
+	}
+	fin.close();
+	m_payload = payload;
+	unsigned int loc = payload.find("unknown");
+	/* The information is unknown,  we don't send it. */
+	if  (loc != std::string::npos)  {
+		ifUnknown = true;
+	}
+	else  {
+		ifUnknown = false;
+	}
+	dataPacket->setContent(reinterpret_cast<const uint8_t*>(payload.c_str()),  payload.length());
+
+    if (m_freshnessPeriod >= time::milliseconds::zero())
+      dataPacket->setFreshnessPeriod(m_freshnessPeriod);
+
+    if (m_isLastAsFinalBlockIdSet) {
+      if (!m_prefixName.empty())
+        dataPacket->setFinalBlockId(m_prefixName.get(-1));
+      else {
+        std::cerr << "Name Provided Has 0 Components" << std::endl;
+        exit(1);
+      }
+    }
+
+    if (m_isUseDigestSha256Set) {
+      m_keyChain.sign(*dataPacket, signingWithSha256());
+    }
+    else {
+      if (m_identityName == nullptr) {
+        m_keyChain.sign(*dataPacket);
+      }
+      else {
+        m_keyChain.sign(*dataPacket, signingByIdentity(*m_identityName));
+      }
+    }
+    return dataPacket;
+  }
+  
+  
+  /* Modified by LiBoyang on August 19th,  2015
+   * This function is used to deal with the data received. We should first update the MapInf.txt and then
+   * do something with the controling.
+   */
+  void
+  onData(const Interest& interest, Data& data)
+  {
+  }
+  
+  
+  /* Modified by LiBoyang on August 10th,  2015
+   * Give out the hint for receiving the interest.
+   */
+  void
+  onInterest(const Name& name,
+             const Interest& interest)
+  {
+    m_isDataSent = true;
+	Name place[16];
+	int i;
+	for (i = 0 ; i < 16 ; i++)  {
+		int k = i+1;
+		std::stringstream ss;
+		std::string counter;
+		std::string store_filter_name = "";
+		std::string m_filter1 = "/broadcast";
+		std::string m_filter2 = "/filter/";
+		std::string m_filter3 = "/common/";
+		
+		ss << k;
+		ss >> counter;
+		std::string init_place = "/place/" + counter;
+		Name temp(init_place);
+		place[i] = temp;
+		Name temp1(init_place + m_filter1);
+		Name temp2(init_place + m_filter2);
+		
+		/* Added by LiBoyang on Augusst 15th,  2015 */
+		Name temp3(init_place + m_filter3);
+		
+		/* The broadcast model interst,  we should respond it with our data. */
+		if  (temp1.isPrefixOf(interest.getName()) == true)  {
+			/* The interest is broadcast model.  */
+			std::cout << "Receive interest. The interest is broadcast model. We should send the data." << std::endl << std::endl;
+			Name data_name(init_place + m_filter1);
+			shared_ptr<Data> dataPacket = createDataPacket(data_name,  place[i]);
+			if  (ifUnknown == false)  {
+				m_face.put(*dataPacket);
+				std::string interest_name = init_place + "/common/" + m_payload;
+				usepeek(interest_name);	
+			}
+			else  {
+				std::cout << "Because the information of this place in our table is unknown,  we don't send it." << std::endl << std::endl;
+			}
+			break;
+		}
+		/**
+		* We get the interest which is filtered.
+		* We should judge whether our car has been banned.
+		*/
+		else if  (temp2.isPrefixOf(interest.getName()) == true)  {
+			std::string get_interest_name = interest.toUri();
+			int j;
+			for (j = 0 ; j < get_interest_name.size() ; j++)  {
+				if  (get_interest_name[j] != '?')  {
+					store_filter_name += get_interest_name[j];
+				}
+				else  {
+					break;
+				}
+			}
+			/* To search if our car number is in the filter. */
+			unsigned int loc = get_interest_name.find(thisCarNumber,  0);
+			if  (loc != std::string::npos)  {
+				std::cout << "The information from this car has been received,  we don't need to send it." << std::endl;
+			}
+			else  {
+				std::cout << "We are not in the filter,  we should send the data again." << std::endl;
+				Name data_name(store_filter_name);
+				shared_ptr<Data> dataPacket = createDataPacket(data_name,  place[i]);
+				if  (ifUnknown == false)  {
+					m_face.put(*dataPacket);
+					std::string interest_name = init_place + "/common/" + m_payload;
+					usepeek(interest_name);					
+				}
+				else  {
+					std::cout << "The information of the place in our table is unknown,  we don't send it." << std::endl << std::endl;
+				}
+			}
+			break;
+		}
+		/* This kind of interest contains data information. 
+		 * Added by LiBoyang on Augusst 19th,  2015 */
+		
+		else if  (temp3.isPrefixOf(interest.getName()) == true)  {
+			Name show_data_information = interest.getName();
+			std::cout << "Someone has sent a data packet: " << show_data_information << std::endl << std::endl;
+			std::string get_interest_name = interest.toUri();
+			int j;
+			for (j = 0 ; j < get_interest_name.size() ; j++)  {
+				if  (get_interest_name[j] != '?')  {
+					store_filter_name += get_interest_name[j];
+				}
+				else  {
+					break;
+				}
+			}
+			Name data_name(store_filter_name);
+		    shared_ptr<Data> dataPacket = createDataPacket(data_name,  place[i]);
+			m_face.put(*dataPacket);
+			break;
+		} 
+	}
+  }
+  
+  void
+  onRegisterFailed(const Name& prefix, const std::string& reason)
+  {
+    std::cerr << "Prefix Registration Failure." << std::endl;
+    std::cerr << "Reason = " << reason << std::endl;
+  }
+
+  /* Modified by LiBoyang on August 5th,  2015
+   * I have modified it for the time of processEvents.
+   */
+  void
+  run()
+  {
+	thisCarNumber = "car1";
+	ifUnknown = true;
+    try {
+			m_face.setInterestFilter(m_prefixName,
+                                 bind(&NdnPoke::onInterest, this, _1, _2),
+                                 RegisterPrefixSuccessCallback(),
+                                 bind(&NdnPoke::onRegisterFailed, this, _1, _2));
+			m_face.processEvents();
+    }
+    catch (std::exception& e) {
+      std::cerr << "ERROR: " << e.what() << "\n" << std::endl;
+      exit(1);
+    }
+  }
+  void usepeek(std::string m_interest_name)  {
+	  m_face.expressInterest(createInterestPacket(m_interest_name),
+                             bind(&NdnPoke::onData, this, _1, _2),
+                             bind(&NdnPoke::onTimeout, this, _1));
+  }
+  bool
+  isDataSent() const
+  {
+    return m_isDataSent;
+  }
+
+private:
+  std::string m_payload;
+  std::string thisCarNumber;
+  bool ifUnknown;
+  KeyChain m_keyChain;
+  std::string m_programName;
+  bool m_isForceDataSet;
+  bool m_isUseDigestSha256Set;
+  shared_ptr<Name> m_identityName;
+  bool m_isLastAsFinalBlockIdSet;
+  time::milliseconds m_freshnessPeriod;
+  time::milliseconds m_timeout;
+  Name m_prefixName;
+  bool m_isDataSent;
+  Face m_face;
+};
+
+int
+main(int argc, char* argv[])
+{
+  int option;
+  NdnPoke program(argv[0]);
+  while ((option = getopt(argc, argv, "hfDi:Fx:w:V")) != -1) {
+    switch (option) {
+    case 'h':
+      program.usage();
+      break;
+    case 'f':
+      program.setForceData();
+      break;
+    case 'D':
+      program.setUseDigestSha256();
+      break;
+    case 'i':
+      program.setIdentityName(optarg);
+      break;
+    case 'F':
+      program.setLastAsFinalBlockId();
+      break;
+    case 'x':
+      program.setFreshnessPeriod(atoi(optarg));
+      break;
+    case 'w':
+      program.setTimeout(atoi(optarg));
+      break;
+    case 'V':
+      std::cout << "ndnpoke " << tools::VERSION << std::endl;
+      return 0;
+    default:
+      program.usage();
+      break;
+    }
+  }
+
+  argc -= optind;
+  argv += optind;
+
+  if (argv[0] == 0)
+    program.usage();
+
+  program.setPrefixName(argv[0]);
+  program.run();
+
+  if (program.isDataSent())
+    return 0;
+  else
+    return 1;
+}
+
+} // namespace peek
+} // namespace ndn
+
+int
+main(int argc, char** argv)
+{
+  return ndn::peek::main(argc, argv);
+}

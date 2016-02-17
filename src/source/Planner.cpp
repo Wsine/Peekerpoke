@@ -1,10 +1,4 @@
-/*
- * Planner.cpp
- *
- *  Created on: 2016.1.5
- *  Author: liboyang
- */
-#include "Planner.h"
+#include "../include/Planner.h"
 
 
 point Path[50];

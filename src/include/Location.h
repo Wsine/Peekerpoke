@@ -1,15 +1,8 @@
-/*
- * Location.h
- *
- *  Created on: 2016.1.6
- *  Author: liboyang
- */
-
 #ifndef LOCATION_H_
 #define LOCATION_H_
 
 #include <iostream>
-#include "Util.h"
+#include "Utils.h"
 using namespace std;
 
 bool IfNfcWork();

@@ -1,10 +1,4 @@
-/*
- * Control.cpp
- *
- *  Created on: 2016.1.6
- *  Author: liboyang
- */
-#include "Control.h"
+#include "../include/Control.h"
 bool IfControlWork()  {
 	return true;
 }

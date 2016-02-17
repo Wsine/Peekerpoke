@@ -1,10 +1,3 @@
-/*
- * Util.h
- *
- *  Created on: 2016Äê1ÔÂ6ÈÕ
- *      Author: liboyang
- */
-
 #ifndef UTIL_H_
 #define UTIL_H_
 

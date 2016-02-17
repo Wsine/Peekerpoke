@@ -12,15 +12,36 @@ PROGRAM     = step1
 # 文件路径
 EXTENSION   = cpp
 SRCS        = $(wildcard $(SOURCE_DIR)/*.$(EXTENSION))
-OBJS        = $(patsubst %.$(EXTENSION), %.o, $(SRCS))
+OBJS        = $(patsubst %.$(EXTENSION), $(OBJ_DIR)/%.o, $(notdir $(SRCS)))
 
 # 编译器及选项
 CC = g++
 CFLAGS = -Wall -g
 LDFLAGS = -lm
 
-.PHONY: all
+.PHONY: clean rebuild help
 
-all:
-	@echo $(SRCS)
-	@echo $(OBJS)
+all: $(OBJS) $(BIN_DIR)
+	$(CC) -o $(BIN_DIR)/$(PROGRAM) $(OBJS) $(LDFLAGS)
+
+$(OBJ_DIR)/%.o: $(SOURCE_DIR)/%.$(EXTENSION) $(OBJ_DIR)
+	$(CC) -o $@ -c $< $(CFLAGS) $(INCLUDE)
+
+$(BIN_DIR): $(BUILD_DIR)
+	mkdir $(BIN_DIR)
+
+$(OBJ_DIR): $(BUILD_DIR)
+	mkdir $(OBJ_DIR)
+
+$(BUILD_DIR):
+	mkdir $(BUILD_DIR)
+
+clean:
+	rm -rf $(BUILD_DIR)
+
+rebuild: clean all
+
+help:
+	@echo "make         -------- make target by modify time"
+	@echo "make clean   -------- clean target"
+	@echo "make rebuild -------- rebuild the target"

@@ -1,15 +1,9 @@
-/*
- * main.cpp
- *
- *  Created on: 2015.12.30
- *  Author: liboyang
- */
 #include <iostream>
 #include <sstream>
 #include <stdlib.h>
-#include "Control.h"
-#include "Util.h"
-#include "Planner.h"
+#include "../include/Control.h"
+#include "../include/Utils.h"
+#include "../include/Planner.h"
 using namespace std;
 
 
@@ -19,7 +13,7 @@ int main()  {
 	point NextPosition;
 	point CurrentPosition;
 	int CurrentDirection;
-	
+
 	MapInitial();
 	cout << "End:";
 	cin >> End.x >> End.y;

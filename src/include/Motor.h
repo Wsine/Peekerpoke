@@ -17,16 +17,16 @@ private:
 public:
 	Motor();
 	~Motor();
-private:
-	int set_interface_attribs(int fd, int speed, int parity);
-	void set_blocking(int fd, int should_block);
-	void initial();
+	bool is_work();
 	void turn_180();
 	void turn_left();
 	void turn_right();
 	void go_straight();
 	void stop();
-	bool is_work();
+private:
+	int set_interface_attribs(int fd, int speed, int parity);
+	void set_blocking(int fd, int should_block);
+	void initial();
 };
 
 #endif

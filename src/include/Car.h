@@ -10,10 +10,11 @@ private:
 	String m_name;
 	Map m_map;
 	Motor m_motor;
+/* Method */
 public:
-	Car();
+	Car(String name);
 	~Car();
-	
+	void adjust_direction();
 };
 
 #endif

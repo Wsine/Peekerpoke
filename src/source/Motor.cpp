@@ -69,22 +69,36 @@ void Motor::turn_left() {
 	if(is_work()) {
 		write(fd, "3", 1);
 		cout << "Turn Left" << endl;		
+	} else {
+		printf("Motor is not working...\n");
 	}
 }
 
 void Motor::turn_right() {
-	write(fd, "4", 1);
-	cout << "Turn Right" << endl;
+	if (is_work()) {	
+		write(fd, "4", 1);
+		cout << "Turn Right" << endl;
+	} else {
+		printf("Motor is not working...\n");
+	}
 }
 
 void Motor::go_straight() {
-	write(fd, "1", 1);
-	cout << "Go Straight!" << endl;
+	if (is_work()) {
+		write(fd, "1", 1);
+		cout << "Go Straight!" << endl;
+	} else {
+		printf("Motor is not working...\n");
+	}
 }
 
 void Motor::stop() {
-	write(fd, "2", 1);
-	cout << "Stop Successful" << endl;
+	if (is_work()) {
+		write(fd, "2", 1);
+		cout << "Stop Successful" << endl;
+	} else {
+		printf("Motor is not working...\n");
+	}
 }
 
 bool Motor::is_work() {

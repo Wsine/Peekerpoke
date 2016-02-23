@@ -1,6 +1,7 @@
 #ifndef CAR_H_
 #define CAR_H_
 
+#include <stdlib.h>
 #include <string.h>
 #include "Map.h"
 #include "Motor.h"
@@ -15,6 +16,8 @@ public:
 	Car(String name);
 	~Car();
 	void adjust_direction();
+	Map& get_map();
+	Motor& get_motor();
 };
 
 #endif

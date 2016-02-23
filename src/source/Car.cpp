@@ -85,3 +85,11 @@ void Car::adjust_direction() {
 		}
 	}
 }
+
+Map& get_map() {
+	return m_map;
+}
+
+Motor& get_motor() {
+	return m_motor;
+}

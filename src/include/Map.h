@@ -11,6 +11,7 @@
 #include <sys/shm.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 #define MAP_ROWS 10
 #define MAP_COLUMNS 10
@@ -59,11 +60,14 @@ public:
 	direction get_current_direction();
 	void set_current_direction(direction _currentDirection);
 	int compare_current2next_direction(char axis);
+	void print_position(int index);
+	bool arrive_destination();
 private:
 	void init_matrix();
 	void init_destination();
+	void init_current_position();
 	void initial();
-	void print();
+	void print_map();
 	void init_dfs();
 	bool dfs_point_valid(const point& p);
 	void print_path(int length);

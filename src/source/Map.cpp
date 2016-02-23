@@ -19,15 +19,20 @@ void Map::init_matrix() {
 }
 
 void Map::init_destination() {
-	destination = point(0, 4);
+	destination = point(9, 4);
+}
+
+void Map::init_current_position() {
+	currentPosition = point(0, 4);
 }
 
 void Map::initial() {
 	init_matrix();
 	init_destination();
+	init_current_position();
 }
 
-void Map::print() {
+void Map::print_map() {
 	printf("Current map:\n");
 	for (int i = 0; i < MAP_ROWS; i++) {
 		for (int j = 0; j < MAP_COLUMNS; j++) {
@@ -127,4 +132,24 @@ int Map::compare_current2next_direction(char axis) {
 		}
 	}
 	return 0;
+}
+
+void Map::print_position(int index) {
+	switch (index) {
+		case 1:
+			printf("Current Position: %d, %d\n", currentPosition.x, currentPosition.y);
+			break;
+		case 2:
+			printf("Next Position: %d, %d\n", nextPosition.x, nextPosition.y);
+			break;
+		case 3:
+			printf("Destination Position: %d, %d\n", destination.x, destination.y);
+			break;
+		default:
+			break;
+	}
+}
+
+bool Map::arrive_destination() {
+	return (currentPosition == destination);
 }

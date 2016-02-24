@@ -66,6 +66,7 @@ private:
 	void init_matrix();
 	void init_destination();
 	void init_current_position();
+	void init_current_direction();
 	void initial();
 	void print_map();
 	void init_dfs();

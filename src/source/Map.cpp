@@ -26,10 +26,15 @@ void Map::init_current_position() {
 	currentPosition = point(0, 4);
 }
 
+void Map::init_current_direction() {
+	currentDirection = d_east;
+}
+
 void Map::initial() {
 	init_matrix();
 	init_destination();
 	init_current_position();
+	init_current_direction();
 }
 
 void Map::print_map() {

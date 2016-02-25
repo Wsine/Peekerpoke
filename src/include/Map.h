@@ -20,8 +20,8 @@
 /*
  * define go_east go_west go_south go_north
  */
-const oper_x[4] = {0, 0, 1, -1};
-const oper_y[4] = {-1, 1, 0, 0};
+const int oper_x[4] = {0, 0, 1, -1};
+const int oper_y[4] = {-1, 1, 0, 0};
 
 enum direction {
 	d_east = 1,
@@ -32,6 +32,7 @@ enum direction {
 
 struct point {
 	int x, y, step;
+	point() {}
 	point(int _x, int _y, int _step = 0) {
 		x = _x;
 		y = _y;
@@ -62,17 +63,18 @@ public:
 	int compare_current2next_direction(char axis);
 	void print_position(int index);
 	bool arrive_destination();
+	void print_map();
+	point get_next_position();
 private:
 	void init_matrix();
 	void init_destination();
 	void init_current_position();
 	void init_current_direction();
 	void initial();
-	void print_map();
 	void init_dfs();
 	bool dfs_point_valid(const point& p);
 	void print_path(int length);
-	bool dfs(int step);
+	bool dfs(point cur, int step);
 };
 
 #endif

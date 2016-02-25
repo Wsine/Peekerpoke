@@ -85,7 +85,7 @@ bool Map::dfs(point cur, int step) {
 			p.y = cur.y + oper_y[i];
 			if (dfs_point_valid(p)) {
 				path[step] = p;
-				p.step = cur.p + 1;
+				p.step = cur.step + 1;
 				visited[p.x][p.y] = true;
 				if (dfs(p, step + 1)) {
 					return true;
@@ -110,8 +110,8 @@ bool Map::next_position_avilable() {
 	return (matrix[nextPosition.x][nextPosition.y] == 0);
 }
 
-direction get_current_direction() {
-	return _currentDirection;
+direction Map::get_current_direction() {
+	return currentDirection;
 }
 
 void Map::set_current_direction(direction _currentDirection) {
@@ -157,4 +157,8 @@ void Map::print_position(int index) {
 
 bool Map::arrive_destination() {
 	return (currentPosition == destination);
+}
+
+point Map::get_next_position() {
+	return nextPosition;
 }

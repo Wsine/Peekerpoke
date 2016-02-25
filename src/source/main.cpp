@@ -27,6 +27,7 @@ int main() {
 			/* Communication */
 			// TODO: refactor the communication part
 			string m_interest = "";
+			point NextPosition = car.get_map().get_next_position();
 			int interest_loc = NextPosition.x * 10 + NextPosition.y;
 			stringstream ss;
 			ss << interest_loc;

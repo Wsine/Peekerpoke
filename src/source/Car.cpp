@@ -1,6 +1,6 @@
 #include "../include/Car.h"
 
-Car::Car(String name) {
+Car::Car(string name) {
 	m_name = name;
 }
 
@@ -86,10 +86,10 @@ void Car::adjust_direction() {
 	}
 }
 
-Map& get_map() {
+Map& Car::get_map() {
 	return m_map;
 }
 
-Motor& get_motor() {
+Motor& Car::get_motor() {
 	return m_motor;
 }

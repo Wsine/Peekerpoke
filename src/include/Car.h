@@ -3,17 +3,20 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <sstream>
+#include <iostream>
 #include "Map.h"
 #include "Motor.h"
+using namespace std;
 
 class Car {
 private:
-	String m_name;
+	string m_name;
 	Map m_map;
 	Motor m_motor;
 /* Method */
 public:
-	Car(String name);
+	Car(string name);
 	~Car();
 	void adjust_direction();
 	Map& get_map();

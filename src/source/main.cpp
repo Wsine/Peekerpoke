@@ -6,7 +6,7 @@ using namespace std;
 
 int main() {
 	// Construct a car named No.1
-	Car car("No.1");
+	Car car("car1");
 	// Print the current map
 	car.get_map().print_map();
 	while (true) {

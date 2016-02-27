@@ -6,7 +6,8 @@ Poke::Poke()
 	, m_isLastAsFinalBlockIdSet(false)
 	, m_freshnessPeriod(-1)
 	, m_timeout(-1)
-	, m_isDataSent(false) {
+	, m_isDataSent(false)
+	, thisCarNumber("Car2") {
 
 }
 
@@ -204,7 +205,7 @@ void Poke::onInterest(const Name& name, const Interest& interest) {
 		/* We get the interest which is filtered. We should judge whether our car has been banned. */
 		case 2: {
 			/* To search if our car number is in the filter. */
-			unsigned int location = getName.find(thisCarNumber,  0);
+			unsigned int location = getName.find(thisCarNumber, 0);
 			if (location != std::string::npos) {
 				printf("The information from this car has been received,  we don't need to send it.\n");
 			}
@@ -239,7 +240,6 @@ void Poke::onRegisterFailed(const Name& prefix, const std::string& reason) {
 }
 
 void Poke::run() {
-	thisCarNumber = "car2";
 	try {
 		m_face.setInterestFilter(m_prefixName,
                          bind(&NdnPoke::onInterest, this, _1, _2),

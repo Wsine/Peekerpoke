@@ -118,17 +118,18 @@ shared_ptr<Data> Poke::createDataPacket(Name GetInterestName,  int SearchResult)
 }
 
 int Poke::GetInformationFromMemory(int AimPosition) {		
-	std::cout << "Aim position is: " << AimPosition << std::endl;
-	int SearchResult = SearchMyMap(AimPosition);
+	printf("Aim position is: %d\n", AimPosition);
+	// int SearchResult = SearchMyMap(AimPosition);
+	int SearchResult = 1; // TODO: get position
 	if (SearchResult == -1) {
-		printf("We don't have the information.\n", );
+		printf("We don't have the information.\n");
 		return 9;
 	}
-	printf("Search successfully.\n", );
+	printf("Search successfully.\n");
 	return SearchResult;
 }
 
-int Poke::GetAimPosition(std::string getName)  {
+int Poke::GetAimPosition(std::string getName) {
 	char PlaceNumber[2];
 	PlaceNumber[0] = getName[7];
 	PlaceNumber[1] = getName[8];
@@ -140,7 +141,7 @@ int Poke::GetAimPosition(std::string getName)  {
 	return AimPosition;
 }
 
-std::string Poke::GetAimPositionString(int pos)  {
+std::string Poke::GetAimPositionString(int pos) {
 	std::stringstream ss;
 	std::string str;
 	ss << pos;
@@ -170,7 +171,7 @@ int Poke::GetTypeOfInterest(std::string AimPosition,  Interest interest) {
 	return result;
 }
 
-void Poke::BroadcastData(int AimPosition)  {
+void Poke::BroadcastData(int AimPosition) {
 	std::stringstream ss;
 	std::string str;
 	ss << AimPosition;
@@ -184,7 +185,8 @@ void Poke::onInterest(const Name& name, const Interest& interest) {
 	Name GetInterestName = interest.getName();
 	std::string getName = GetInterestName.toUri();
 	int AimPosition = GetAimPosition(getName);
-	std::string AimPosStr = GetAimPositionString(AimPosition);
+	// std::string AimPosStr = GetAimPositionString(AimPosition);
+	std::string AimPosStr = Util::int2string(AimPosition);
 	int Type = GetTypeOfInterest(AimPosStr,  interest);
 	int SearchResult =  GetInformationFromMemory(AimPosition);
 
@@ -222,7 +224,7 @@ void Poke::onInterest(const Name& name, const Interest& interest) {
 			}
 			break;
 		}
-			/* This kind of interest contains data information. Modified by LiBoyang on Feb 9th,  2016. */
+		/* This kind of interest contains data information. Modified by LiBoyang on Feb 9th,  2016. */
 		case 3: {
 			printf("Someone has sent a data packet: %s\n", getName);
 			break;

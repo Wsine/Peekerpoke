@@ -162,3 +162,7 @@ bool Map::arrive_destination() {
 point Map::get_next_position() {
 	return nextPosition;
 }
+
+int Map::get_map_at_position(const int& position) {
+	return matrix[position];
+}

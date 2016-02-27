@@ -65,6 +65,7 @@ public:
 	bool arrive_destination();
 	void print_map();
 	point get_next_position();
+	int get_map_at_position(const int& position);
 private:
 	void init_matrix();
 	void init_destination();

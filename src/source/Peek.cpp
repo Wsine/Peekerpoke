@@ -4,59 +4,73 @@ NdnPeek::NdnPeek() {
 	m_mustBeFresh = true;
 	m_isPayloadOnlySet = true;
 	m_isChildSelectorRightmost = false;
+	m_isDataReceived = false;
 	m_timeout = time::milliseconds(3);
 	m_ttl = 3;
 	m_minSuffixComponents = -1;
 	m_maxSuffixComponents = -1;
 	m_interestLifetime = -1;
 }
+
 NdnPeek::~NdnPeek() {
 	;
 }
+
 void NdnPeek::setMustBeFresh() {
 	m_mustBeFresh = true;
 }
+
 void NdnPeek::setRightmostChildSelector() {
 	m_isChildSelectorRightmost = true;
 }
+
 void NdnPeek::setMinSuffixComponents(int minSuffixComponents) {
 	if (minSuffixComponents < 0)
 		usage();
 	m_minSuffixComponents = minSuffixComponents;
 }
+
 void NdnPeek::setMaxSuffixComponents(int maxSuffixComponents) {
 	if (maxSuffixComponents < 0)
 		usage();
 	m_maxSuffixComponents = maxSuffixComponents;
 }
+
 void NdnPeek::setInterestLifetime(int interestLifetime) {
 	if (interestLifetime < 0)
 		usage();
 	m_interestLifetime = time::milliseconds(interestLifetime);
 }
+
 void NdnPeek::setPayloadOnly() {
 	m_isPayloadOnlySet = true;
 }
+
 void NdnPeek::setTimeout(int timeout) {
 	if (timeout < 0)
 		usage();
 	m_timeout = time::milliseconds(timeout);
 	m_ttl = timeout;
 }
-void NdnPeek::setPrefixName(char* prefixName) {
+
+void NdnPeek::setPrefixName(std::string prefixName) {
 	m_prefixName = prefixName;
 	if (m_prefixName.length() == 0)
 		usage();
 }
+
 time::milliseconds NdnPeek::getDefaultInterestLifetime() {
 	return time::seconds(4);
 }
+
 void NdnPeek::onTimeout(const Interest& interest) {
 	;
 }
+
 bool NdnPeek::isDataReceived() const {
 	return m_isDataReceived;
 }
+
 Interest NdnPeek::createInterestPacket(std::string m_name) {
 	Name interestName(m_prefixName + m_name);
 	Interest interestPacket(interestName);
@@ -67,6 +81,7 @@ Interest NdnPeek::createInterestPacket(std::string m_name) {
 	interestPacket.setInterestLifetime(m_interestLifetime);
 	return interestPacket;
 }
+
 void NdnPeek::CollectCurrentCarNumber(const Block& block)  {
 	std::string data = reinterpret_cast<const char*>(block.value());
 	char a = '#';
@@ -84,6 +99,7 @@ void NdnPeek::CollectCurrentCarNumber(const Block& block)  {
 		model = "broadcast";
 	}
 }
+
 void NdnPeek::onData(const Interest& interest, Data& data) {
 	m_isDataReceived = true;
 	if (m_isPayloadOnlySet) {
@@ -129,6 +145,12 @@ void NdnPeek::run(std::string carName) {
 		std::cerr << "ERROR: " << e.what() << "\n" << std::endl;
 	}
 }
+
 std::string NdnPeek::getReceivedData() {
 	return m_received_data;
+}
+
+void NdnPeek::usage() {
+	printf("Command invalid!\n");
+	exit(1);
 }

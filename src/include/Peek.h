@@ -1,7 +1,7 @@
 #ifndef PEEK_H_
 #define PEEK_H_
 
-#include "ndn-tools/version.hpp"
+#include "../../lib/ndn-tools/version.hpp"
 #include <fstream>
 #include <vector>
 #include <stdio.h>
@@ -36,7 +36,8 @@ namespace ndn {
 			NdnPeek();
 			~NdnPeek();
 		/* ndn method */
-		private:
+		public:
+			void usage();
 			void setMustBeFresh();
 			void setRightmostChildSelector();
 			void setMinSuffixComponents(int minSuffixComponents);
@@ -44,7 +45,7 @@ namespace ndn {
 			void setInterestLifetime(int interestLifetime);
 			void setPayloadOnly();
 			void setTimeout(int timeout);
-			void setPrefixName(char* prefixName);
+			void setPrefixName(std::string prefixName);
 			time::milliseconds getDefaultInterestLifetime();
 			void onTimeout(const Interest& interest);
 			bool isDataReceived();
@@ -53,6 +54,7 @@ namespace ndn {
 			void collectCurrentCarNumber(const Block& block);
 			void onData(const Interest& interest, Data& data);
 			void run(std::string carName);
+			void usage();
 			std::string getReceivedData();
 		};
 	}

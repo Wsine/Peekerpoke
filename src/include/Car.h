@@ -5,8 +5,10 @@
 #include <string.h>
 #include <sstream>
 #include <iostream>
+#include <pthread.h>
 #include "Map.h"
 #include "Motor.h"
+#include "Poke.h"
 using namespace std;
 
 class Car {
@@ -16,11 +18,14 @@ private:
 	Motor m_motor;
 /* Method */
 public:
+	Car();
 	Car(string name);
 	~Car();
-	void adjust_direction();
-	Map& get_map();
-	Motor& get_motor();
+	void adjustDirection();
+	Map& getMap();
+	Motor& getMotor();
+	friend void* startPoke(void *ptr);
+	void forkThreadForPoke();
 };
 
 #endif

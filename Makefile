@@ -16,8 +16,9 @@ OBJS        = $(patsubst %.$(EXTENSION), $(OBJ_DIR)/%.o, $(notdir $(SRCS)))
 
 # 编译器及选项
 CC = g++
-CFLAGS = -Wall -g
-LDFLAGS = -lm
+CFLAGS = -Wall -g -std=c++0x
+LDFLAGS = -lm -lpthread -lboost_system $(shell pkg-config --cflags --libs libndn-cxx)
+INCLUDE = -I$(INCLUDE_DIR)
 
 .PHONY: clean rebuild help
 

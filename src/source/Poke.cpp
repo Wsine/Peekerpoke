@@ -8,7 +8,7 @@ Poke::Poke()
 	, m_timeout(-1)
 	, m_isDataSent(false)
 	, thisCarNumber("Car2") {
-
+	init();
 }
 
 void Poke::usage() {
@@ -119,8 +119,7 @@ shared_ptr<Data> Poke::createDataPacket(Name GetInterestName,  int SearchResult)
 
 int Poke::GetInformationFromMemory(int AimPosition) {		
 	printf("Aim position is: %d\n", AimPosition);
-	// int SearchResult = SearchMyMap(AimPosition);
-	int SearchResult = 1; // TODO: get position
+	int SearchResult = Util::getCar().getMap().getMapAtPosition(AimPosition);
 	if (SearchResult == -1) {
 		printf("We don't have the information.\n");
 		return 9;
@@ -172,10 +171,7 @@ int Poke::GetTypeOfInterest(std::string AimPosition,  Interest interest) {
 }
 
 void Poke::BroadcastData(int AimPosition) {
-	std::stringstream ss;
-	std::string str;
-	ss << AimPosition;
-	ss >> str;
+	std::string str = Util::int2string(AimPosition);
 	std::string interest_name = "/place/" + str + "/common/" + m_payload;
 	usepeek(interest_name);	
 }
@@ -200,7 +196,7 @@ void Poke::onInterest(const Name& name, const Interest& interest) {
 				BroadcastData(AimPosition);
 			}
 			else {
-				std::cout << "Search information error." << std::endl;
+				printf("Search information error.\n");
 			}
 			break;
 		}
@@ -269,26 +265,12 @@ Interest Poke::createInterestPacket(std::string m_name) {
 	return interestPacket;
 }
 
-int Poke::SearchMyMap(int AimPosition) {
-	int shm_id;
-	key_t key;
-	int *MapMemory;
-	char pathname[30] ;
-	strcpy(pathname,"/tmp") ;
-	key = ftok(pathname,0x03);
-	if (key == -1) {
-		perror("ftok error");
-		return -1;
+void Poke::init() {
+	this->setPrefixName("ndn:/place");
+	this->run();
+	if (this->isDataSent()) {
+		printf("Data was sent.\n");
+	} else {
+		printf("Sent data failed.\n");
 	}
-	shm_id = shmget(key,0, 0);   
-	if (shm_id == -1) {
-		perror("shmget error");
-		return -1;
-	}
-	MapMemory = (int*)shmat(shm_id,NULL,0);
-	return MapMemory[AimPosition];
-	if (shmdt(MapMemory) == -1) {
-		perror("detach error\n");
-		return -1;
-	}
-} 
+}

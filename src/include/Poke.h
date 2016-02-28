@@ -54,7 +54,7 @@ public:
 	void run();
 	void usepeek(std::string m_interest_name);
 	Interest createInterestPacket(std::string m_name);
-	int SearchMyMap(int AimPosition);
+	void init();
 };
 
 #endif

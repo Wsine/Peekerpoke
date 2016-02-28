@@ -93,3 +93,6 @@ Map& Car::get_map() {
 Motor& Car::get_motor() {
 	return m_motor;
 }
+Peek& Car::get_peek() {
+	return m_peek;
+}

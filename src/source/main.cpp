@@ -24,9 +24,17 @@ int main() {
 		} else {
 			// Adjust the direction based current2next position
 			car.adjust_direction();
+			car.get_peek().setPrefixName("ndn:/place/32");
+			car.get_peek().run("car1");
+			if (car.get_peek().isDataReceived()) {
+				printf("%s\n", car.get_peek().getReceivedData());
+			}
+			else {
+				printf("Peek failed\n");
+			}
 			/* Communication */
 			// TODO: refactor the communication part
-			string m_interest = "";
+			/*string m_interest = "";
 			point NextPosition = car.get_map().get_next_position();
 			int interest_loc = NextPosition.x * 10 + NextPosition.y;
 			stringstream ss;
@@ -36,6 +44,8 @@ int main() {
 			const char* str = temp.c_str();
 			cout << str << endl;
 			system(str);
+			*/
+
 			/*****************/
 			// Print the current map
 			car.get_map().print_map();

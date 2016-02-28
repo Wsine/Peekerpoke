@@ -17,8 +17,8 @@
  * ndn-tools, e.g., in COPYING.md file.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NDN_TOOLS_CORE_VERSION_HPP
-#define NDN_TOOLS_CORE_VERSION_HPP
+#ifndef NDN_TOOLS_VERSION_HPP
+#define NDN_TOOLS_VERSION_HPP
 
 #include "common.hpp"
 
@@ -32,4 +32,4 @@ extern const char VERSION[];
 } // namespace tools
 } // namespace ndn
 
-#endif // NDN_TOOLS_CORE_VERSION_HPP
+#endif // NDN_TOOLS_ERSION_HPP

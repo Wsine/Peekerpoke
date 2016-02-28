@@ -2,10 +2,12 @@
 
 Car::Car() {
 	m_name = "Car No.1";
+	thread t(startPoke);
 }
 
 Car::Car(string name) {
 	m_name = name;
+	thread t(startPoke);
 }
 
 Car::~Car() {}
@@ -96,4 +98,16 @@ Map& Car::getMap() {
 
 Motor& Car::getMotor() {
 	return m_motor;
+}
+
+void Car::startPoke() {
+	Poke poke;
+	poke.setPrefixName("ndn:/place");
+	poke.run();
+	if (poke.isDataSent()) {
+		printf("Data Sent Successfully.\n");
+	} else {
+		printf("Data Sent Failed.\n");
+	}
+	printf("Sub Thread Exited.\n");
 }

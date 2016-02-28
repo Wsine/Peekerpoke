@@ -264,13 +264,3 @@ Interest Poke::createInterestPacket(std::string m_name) {
 	interestPacket.setInterestLifetime(time::seconds(4));
 	return interestPacket;
 }
-
-void Poke::init() {
-	this->setPrefixName("ndn:/place");
-	this->run();
-	if (this->isDataSent()) {
-		printf("Data was sent.\n");
-	} else {
-		printf("Sent data failed.\n");
-	}
-}

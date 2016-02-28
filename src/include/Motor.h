@@ -18,15 +18,15 @@ private:
 public:
 	Motor();
 	~Motor();
-	bool is_work();
-	void turn_180();
-	void turn_left();
-	void turn_right();
-	void go_straight();
+	bool isWork();
+	void turn180();
+	void turnLeft();
+	void turnRight();
+	void goStraight();
 	void stop();
 private:
-	int set_interface_attribs(int fd, int speed, int parity);
-	void set_blocking(int fd, int should_block);
+	int setInterfaceAttribs(int fd, int speed, int parity);
+	void setBlocking(int fd, int should_block);
 	void initial();
 };
 

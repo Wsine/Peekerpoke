@@ -56,25 +56,25 @@ private:
 public:
 	Map();
 	~Map();
-	void update_next_position();
-	bool next_position_avilable();
-	direction get_current_direction();
-	void set_current_direction(direction _currentDirection);
-	int compare_current2next_direction(char axis);
-	void print_position(int index);
-	bool arrive_destination();
-	void print_map();
-	point get_next_position();
-	int get_map_at_position(const int& position);
+	void updateNextPosition();
+	bool nextPositionAvilable();
+	direction getCurrentDirection();
+	void setCurrentDirection(direction _currentDirection);
+	int compareCurrent2nextDirection(char axis);
+	void printPosition(int index);
+	bool arriveDestination();
+	void printMap();
+	point getNextPosition();
+	int getMapAtPosition(const int& position);
 private:
-	void init_matrix();
-	void init_destination();
-	void init_current_position();
-	void init_current_direction();
+	void initMatrix();
+	void initDestination();
+	void initCurrentPosition();
+	void initCurrentDirection();
 	void initial();
-	void init_dfs();
-	bool dfs_point_valid(const point& p);
-	void print_path(int length);
+	void initDfs();
+	bool dfsPointValid(const point& p);
+	void printPath(int length);
 	bool dfs(point cur, int step);
 };
 

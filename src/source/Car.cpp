@@ -1,97 +1,99 @@
 #include "../include/Car.h"
 
+Car::Car() {
+	m_name = "Car No.1";
+}
+
 Car::Car(string name) {
 	m_name = name;
 }
 
-Car::~Car() {
-	m_name = "Car No.1";
-}
+Car::~Car() {}
 
-void Car::adjust_direction() {
-	if (m_map.compare_current2next_direction('x') == 0) {
-		if (m_map.compare_current2next_direction('y') == -1) {
-			switch (m_map.get_current_direction()) {
+void Car::adjustDirection() {
+	if (m_map.compareCurrent2nextDirection('x') == 0) {
+		if (m_map.compareCurrent2nextDirection('y') == -1) {
+			switch (m_map.getCurrentDirection()) {
 				case d_east:
 					break;
 				case d_west:
-					m_motor.turn_180();
+					m_motor.turn180();
 					break;
 				case d_south:
-					m_motor.turn_left();
+					m_motor.turnLeft();
 					break;
 				case d_north:
-					m_motor.turn_right();
+					m_motor.turnRight();
 					break;
 				default:
 					break;
 			}
-			m_map.set_current_direction(d_east);
+			m_map.setCurrentDirection(d_east);
 			printf("Current direction: EAST\n");
 		} else {
-			switch (m_map.get_current_direction()) {
+			switch (m_map.getCurrentDirection()) {
 				case d_east:
-					m_motor.turn_180();
+					m_motor.turn180();
 					break;
 				case d_west:
 					break;
 				case d_south:
-					m_motor.turn_right();
+					m_motor.turnRight();
 					break;
 				case d_north:
-					m_motor.turn_left();
+					m_motor.turnLeft();
 					break;
 				default:
 					break;
 			}
-			m_map.set_current_direction(d_west);
+			m_map.setCurrentDirection(d_west);
 			printf("Current direction: WEST\n");
 		}
-	} else if (m_map.compare_current2next_direction('y') == 0) {
-		if (m_map.compare_current2next_direction('x') == -1) {
-			switch (m_map.get_current_direction()) {
+	} else if (m_map.compareCurrent2nextDirection('y') == 0) {
+		if (m_map.compareCurrent2nextDirection('x') == -1) {
+			switch (m_map.getCurrentDirection()) {
 				case d_east:
-					m_motor.turn_right();
+					m_motor.turnRight();
 					break;
 				case d_west:
-					m_motor.turn_left();
+					m_motor.turnLeft();
 					break;
 				case d_south:
 					break;
 				case d_north:
-					m_motor.turn_180();
+					m_motor.turn180();
 					break;
 				default:
 					break;
 			}
-			m_map.set_current_direction(d_south);
+			m_map.setCurrentDirection(d_south);
 			printf("Current direction: SOUTH\n");
 		} else {
-			switch (m_map.get_current_direction()) {
+			switch (m_map.getCurrentDirection()) {
 				case d_east:
-					m_motor.turn_left();
+					m_motor.turnLeft();
 					break;
 				case d_west:
-					m_motor.turn_right();
+					m_motor.turnRight();
 					break;
 				case d_south:
-					m_motor.turn_180();
+					m_motor.turn180();
 					break;
 				case d_north:
 					break;
 				default:
 					break;
 			}
-			m_map.set_current_direction(d_north);
+			m_map.setCurrentDirection(d_north);
 			printf("Current direction: NOTRH\n");
 		}
 	}
 }
 
-Map& Car::get_map() {
+Map& Car::getMap() {
 	return m_map;
 }
 
-Motor& Car::get_motor() {
+Motor& Car::getMotor() {
 	return m_motor;
 }

@@ -6,26 +6,26 @@ using namespace std;
 
 int main() {
 	// Print the current map
-	Util::getCar().get_map().print_map();
+	Util::getCar().getMap().printMap();
 	while (true) {
 		// Print current position
-		Util::getCar().get_map().print_position(1);
+		Util::getCar().getMap().printPosition(1);
 		// Update next position
-		Util::getCar().get_map().update_next_position();
+		Util::getCar().getMap().updateNextPosition();
 		// Print next position
-		Util::getCar().get_map().print_position(2);
+		Util::getCar().getMap().printPosition(2);
 		// Check if arrive destination
-		if (Util::getCar().get_map().arrive_destination()) {
+		if (Util::getCar().getMap().arriveDestination()) {
 			printf("Arrived Destination\n");
-			Util::getCar().get_motor().stop();
+			Util::getCar().getMotor().stop();
 			break;
 		} else {
 			// Adjust the direction based current2next position
-			Util::getCar().adjust_direction();
+			Util::getCar().adjustDirection();
 			/* Communication */
 			// TODO: refactor the communication part
 			string m_interest = "";
-			point NextPosition = Util::getCar().get_map().get_next_position();
+			point NextPosition = Util::getCar().getMap().getNextPosition();
 			int interest_loc = NextPosition.x * 10 + NextPosition.y;
 			stringstream ss;
 			ss << interest_loc;
@@ -36,12 +36,12 @@ int main() {
 			system(str);
 			/*****************/
 			// Print the current map
-			Util::getCar().get_map().print_map();
+			Util::getCar().getMap().printMap();
 			// Check if next position is avilable
-			if (Util::getCar().get_map().next_position_avilable()) {
-				Util::getCar().get_motor().go_straight();
+			if (Util::getCar().getMap().nextPositionAvilable()) {
+				Util::getCar().getMotor().goStraight();
 			} else {
-				Util::getCar().get_motor().stop();
+				Util::getCar().getMotor().stop();
 				printf("Next Position is Locked, Waitting...\n");
 			}
 		}

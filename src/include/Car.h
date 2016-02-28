@@ -16,11 +16,12 @@ private:
 	Motor m_motor;
 /* Method */
 public:
+	Car();
 	Car(string name);
 	~Car();
-	void adjust_direction();
-	Map& get_map();
-	Motor& get_motor();
+	void adjustDirection();
+	Map& getMap();
+	Motor& getMotor();
 };
 
 #endif

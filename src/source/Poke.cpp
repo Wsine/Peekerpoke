@@ -1,14 +1,14 @@
-#include "../include/Poke.h"
+#include "Poke.h"
 
 Poke::Poke()
-	: m_isForceDataSet(false)
+	: thisCarNumber("Car2")
+	, m_isForceDataSet(false)
 	, m_isUseDigestSha256Set(false)
 	, m_isLastAsFinalBlockIdSet(false)
 	, m_freshnessPeriod(-1)
 	, m_timeout(-1)
-	, m_isDataSent(false)
-	, thisCarNumber("Car2") {
-	init();
+	, m_isDataSent(false) {
+	
 }
 
 void Poke::usage() {
@@ -29,7 +29,7 @@ void Poke::setForceData() {
 	m_isForceDataSet = true;
 }
 
-void setUseDigestSha256() {
+void Poke::setUseDigestSha256() {
 	m_isUseDigestSha256Set = true;
 }
 
@@ -73,7 +73,7 @@ void Poke::onData(const Interest& interest, Data& data) {
 	;
 }
 
-shared_ptr<Data> Poke::createDataPacket(Name GetInterestName,  int SearchResult) {
+shared_ptr<Data> Poke::createDataPacket(Name GetInterestName, int SearchResult) {
 	auto dataPacket = make_shared<Data>(GetInterestName);
 	std::string timeStamp = time::toIsoString(time::system_clock::now());
 	std::string payload;
@@ -90,7 +90,7 @@ shared_ptr<Data> Poke::createDataPacket(Name GetInterestName,  int SearchResult)
 	else {
 		ifUnknown = false;
 	}
-	dataPacket->setContent(reinterpret_cast<const uint8_t*>(payload.c_str()),  payload.length());
+	dataPacket->setContent(reinterpret_cast<const uint8_t*>(payload.c_str()), payload.length());
 	if (m_freshnessPeriod >= time::milliseconds::zero()) {
 		dataPacket->setFreshnessPeriod(m_freshnessPeriod);
 	}
@@ -117,7 +117,7 @@ shared_ptr<Data> Poke::createDataPacket(Name GetInterestName,  int SearchResult)
 	return dataPacket;
 }
 
-int Poke::GetInformationFromMemory(int AimPosition) {		
+int Poke::GetInformationFromMemory(int AimPosition) {
 	printf("Aim position is: %d\n", AimPosition);
 	int SearchResult = Util::getCar().getMap().getMapAtPosition(AimPosition);
 	if (SearchResult == -1) {
@@ -148,7 +148,7 @@ std::string Poke::GetAimPositionString(int pos) {
 	return str;
 }
 
-int Poke::GetTypeOfInterest(std::string AimPosition,  Interest interest) {
+int Poke::GetTypeOfInterest(std::string AimPosition, Interest interest) {
 	int result = -1;
 	std::string m_filter_broadcast = "/broadcast";
 	std::string m_filter_filter = "/filter/";
@@ -166,7 +166,7 @@ int Poke::GetTypeOfInterest(std::string AimPosition,  Interest interest) {
 	if (JudgeCommon.isPrefixOf(interest.getName()) == true) {
 		result = 3;
 	}
-	printf("%s\n", init_place);
+	printf("%s\n", init_place.c_str());
 	return result;
 }
 
@@ -191,7 +191,7 @@ void Poke::onInterest(const Name& name, const Interest& interest) {
 		case 1: {
 			printf("Receive interest. The interest is broadcast model. We should send the data.\n\n");
 			if (SearchResult != 9) {
-				shared_ptr<Data> dataPacket = createDataPacket(GetInterestName,  SearchResult);
+				shared_ptr<Data> dataPacket = createDataPacket(GetInterestName, SearchResult);
 				m_face.put(*dataPacket);
 				BroadcastData(AimPosition);
 			}
@@ -210,7 +210,7 @@ void Poke::onInterest(const Name& name, const Interest& interest) {
 			else {
 				printf("We are not in the filter,  we should send the data again.\n");
 				if (SearchResult != 9) {
-					shared_ptr<Data> dataPacket = createDataPacket(GetInterestName,  SearchResult);
+					shared_ptr<Data> dataPacket = createDataPacket(GetInterestName, SearchResult);
 					m_face.put(*dataPacket);
 					BroadcastData(AimPosition);
 				}
@@ -222,7 +222,7 @@ void Poke::onInterest(const Name& name, const Interest& interest) {
 		}
 		/* This kind of interest contains data information. Modified by LiBoyang on Feb 9th,  2016. */
 		case 3: {
-			printf("Someone has sent a data packet: %s\n", getName);
+			printf("Someone has sent a data packet: %s\n", getName.c_str());
 			break;
 		}
 		default: {
@@ -240,9 +240,9 @@ void Poke::onRegisterFailed(const Name& prefix, const std::string& reason) {
 void Poke::run() {
 	try {
 		m_face.setInterestFilter(m_prefixName,
-                         bind(&NdnPoke::onInterest, this, _1, _2),
+                         bind(&Poke::onInterest, this, _1, _2),
                          RegisterPrefixSuccessCallback(),
-                         bind(&NdnPoke::onRegisterFailed, this, _1, _2));
+                         bind(&Poke::onRegisterFailed, this, _1, _2));
 		m_face.processEvents();
 	}
 	catch (std::exception& e) {
@@ -253,8 +253,8 @@ void Poke::run() {
 
 void Poke::usepeek(std::string m_interest_name) {
 	m_face.expressInterest(createInterestPacket(m_interest_name),
-                     bind(&NdnPoke::onData, this, _1, _2),
-                     bind(&NdnPoke::onTimeout, this, _1));
+                     bind(&Poke::onData, this, _1, _2),
+                     bind(&Poke::onTimeout, this, _1));
 }
 
 Interest Poke::createInterestPacket(std::string m_name) {

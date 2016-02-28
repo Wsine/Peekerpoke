@@ -3,8 +3,9 @@
 
 #include <string.h>
 #include <sstream>
-#include "../include/Car.h"
-using namespcae std;
+#include "Car.h"
+
+class Car; // Fix in Linux; Stupid!!!
 
 class Util {
 private:

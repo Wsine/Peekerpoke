@@ -5,7 +5,7 @@
 #include <string.h>
 #include <sstream>
 #include <iostream>
-#include <thread.h>
+#include <pthread.h>
 #include "Map.h"
 #include "Motor.h"
 #include "Poke.h"
@@ -24,7 +24,8 @@ public:
 	void adjustDirection();
 	Map& getMap();
 	Motor& getMotor();
-	void startPoke();
+	friend void* startPoke(void *ptr);
+	void forkThreadForPoke();
 };
 
 #endif

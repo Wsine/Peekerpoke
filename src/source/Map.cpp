@@ -1,4 +1,4 @@
-#include "../include/Map.h"
+#include "Map.h"
 
 Map::Map() {
 	initial();
@@ -164,5 +164,7 @@ point Map::getNextPosition() {
 }
 
 int Map::getMapAtPosition(const int& position) {
-	return matrix[position];
+	int row = position / MAP_ROWS;
+	int col = position % MAP_COLUMNS;
+	return matrix[row][col];
 }

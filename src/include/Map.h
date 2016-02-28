@@ -12,6 +12,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <stdlib.h>
+using namespace std;
 
 #define MAP_ROWS 10
 #define MAP_COLUMNS 10

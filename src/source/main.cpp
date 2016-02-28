@@ -1,7 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include <stdlib.h>
-#include "../include/Util.h"
+#include "Util.h"
 using namespace std;
 
 int main() {

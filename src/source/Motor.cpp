@@ -1,4 +1,4 @@
-#include "../include/Motor.h"
+#include "Motor.h"
 
 Motor::Motor() {
 	portname = "/dev/ttymxc3";

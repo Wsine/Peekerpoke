@@ -1,7 +1,8 @@
 #ifndef POKE_H_
 #define POKE_H_
 
-#include "../../lib/ndn-tools/version.hpp"
+#include "../../lib/ndn-tools/common.hpp"
+// #include "../../lib/ndn-tools/version.hpp"
 #include <fstream>
 #include <sstream>
 #include <stdio.h>
@@ -11,7 +12,9 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include "time.h"
-#include "../include/Util.h"
+#include "Util.h" // useless in Linux; Stupid!!!
+
+using namespace ndn;
 
 class Poke : boost::noncopyable {
 private:
@@ -32,9 +35,9 @@ private:
 public:
 	explicit Poke();
 	void usage();
-	void setFourceData();
+	void setForceData();
 	void setUseDigestSha256();
-	void setIdentityName();
+	void setIdentityName(char* identityName);
 	void setLastAsFinalBlockId();
 	void setFreshnessPeriod(int freshnessPeriod);
 	void setTimeout(int timeout);
@@ -47,7 +50,7 @@ public:
 	int GetInformationFromMemory(int AimPosition);
 	int GetAimPosition(std::string getName);
 	std::string GetAimPositionString(int pos);
-	int GetTypeOfInterest(std::string AimPosition,  Interest interest);
+	int GetTypeOfInterest(std::string AimPosition, Interest interest);
 	void BroadcastData(int AimPosition);
 	void onInterest(const Name& name, const Interest& interest);
 	void onRegisterFailed(const Name& prefix, const std::string& reason);

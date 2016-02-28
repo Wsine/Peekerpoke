@@ -1,13 +1,13 @@
-#include "../include/Car.h"
+#include "Car.h"
 
 Car::Car() {
 	m_name = "Car No.1";
-	thread t(startPoke);
+	forkThreadForPoke();
 }
 
 Car::Car(string name) {
 	m_name = name;
-	thread t(startPoke);
+	forkThreadForPoke();
 }
 
 Car::~Car() {}
@@ -100,9 +100,10 @@ Motor& Car::getMotor() {
 	return m_motor;
 }
 
-void Car::startPoke() {
+void* startPoke(void *ptr) {
 	Poke poke;
-	poke.setPrefixName("ndn:/place");
+	char *preFixName = "ndn:/place";
+	poke.setPrefixName(preFixName);
 	poke.run();
 	if (poke.isDataSent()) {
 		printf("Data Sent Successfully.\n");
@@ -110,4 +111,16 @@ void Car::startPoke() {
 		printf("Data Sent Failed.\n");
 	}
 	printf("Sub Thread Exited.\n");
+	return NULL;
+}
+
+void Car::forkThreadForPoke() {
+	pthread_t thread;
+	int createThreadResult;
+	createThreadResult = pthread_create(&thread, NULL, startPoke, NULL);
+	if (createThreadResult) {
+		printf("Sub Thread Started.\n");
+	} else {
+		printf("Try Create Sub Thread Failed.\n");
+	}
 }

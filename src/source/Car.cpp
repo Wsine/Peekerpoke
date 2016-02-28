@@ -4,7 +4,9 @@ Car::Car(string name) {
 	m_name = name;
 }
 
-Car::~Car() {}
+Car::~Car() {
+	m_name = "Car No.1";
+}
 
 void Car::adjust_direction() {
 	if (m_map.compare_current2next_direction('x') == 0) {

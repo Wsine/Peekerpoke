@@ -1,4 +1,4 @@
-#include "../include/Motor.h"
+#include "Motor.h"
 
 Motor::Motor() {
 	portname = "/dev/ttymxc3";
@@ -9,7 +9,7 @@ Motor::Motor() {
 
 Motor::~Motor() {}
 
-int Motor::set_interface_attribs(int fd, int speed, int parity) {
+int Motor::setInterfaceAttribs(int fd, int speed, int parity) {
 	struct termios tty;
 	memset (&tty, 0, sizeof tty);
 	if (tcgetattr (fd, &tty) != 0){
@@ -37,7 +37,7 @@ int Motor::set_interface_attribs(int fd, int speed, int parity) {
 	return 0;
 }
 
-void Motor::set_blocking(int fd, int should_block) {
+void Motor::setBlocking(int fd, int should_block) {
 	struct termios tty;
 	memset (&tty, 0, sizeof tty);
 	if (tcgetattr (fd, &tty) != 0){
@@ -55,18 +55,18 @@ void Motor::initial() {
 		printf("error %d opening %s: %s", errno, portname, strerror (errno));
 		return;
 	}
-	set_interface_attribs (fd, B115200, 0);
-	set_blocking (fd, 0);
+	setInterfaceAttribs (fd, B115200, 0);
+	setBlocking (fd, 0);
 	work = true;
 }
 
-void Motor::turn_180() {
+void Motor::turn180() {
 	// TODO: to be implemented
 	printf("Turn 180\n");
 }
 
-void Motor::turn_left() {
-	if(is_work()) {
+void Motor::turnLeft() {
+	if(isWork()) {
 		write(fd, "3", 1);
 		printf("Turn Left\n");		
 	} else {
@@ -74,8 +74,8 @@ void Motor::turn_left() {
 	}
 }
 
-void Motor::turn_right() {
-	if (is_work()) {	
+void Motor::turnRight() {
+	if (isWork()) {	
 		write(fd, "4", 1);
 		printf("Turn Right\n");
 	} else {
@@ -83,8 +83,8 @@ void Motor::turn_right() {
 	}
 }
 
-void Motor::go_straight() {
-	if (is_work()) {
+void Motor::goStraight() {
+	if (isWork()) {
 		write(fd, "1", 1);
 		printf("Go Straight!\n");
 	} else {
@@ -93,7 +93,7 @@ void Motor::go_straight() {
 }
 
 void Motor::stop() {
-	if (is_work()) {
+	if (isWork()) {
 		write(fd, "2", 1);
 		printf("Stop Successful\n");
 	} else {
@@ -101,6 +101,6 @@ void Motor::stop() {
 	}
 }
 
-bool Motor::is_work() {
+bool Motor::isWork() {
 	return work;
 }

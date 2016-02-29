@@ -5,9 +5,11 @@
 #include <string.h>
 #include <sstream>
 #include <iostream>
+#include <pthread.h>
 #include "Map.h"
 #include "Motor.h"
 #include "Peek.h"
+#include "Poke.h"
 using namespace std;
 
 class Car {
@@ -18,12 +20,14 @@ private:
 	Peek m_peek;
 /* Method */
 public:
+	Car();
 	Car(string name);
 	~Car();
-	void adjust_direction();
-	Map& get_map();
-	Motor& get_motor();
-	Peek& get_peek();
+	void adjustDirection();
+	Map& getMap();
+	Motor& getMotor();
+	friend void* startPoke(void *ptr);
+	void forkThreadForPoke();
 };
 
 #endif

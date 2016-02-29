@@ -1,4 +1,4 @@
-#include "../include/Map.h"
+#include "Map.h"
 
 Map::Map() {
 	initial();
@@ -6,7 +6,7 @@ Map::Map() {
 
 Map::~Map() {}
 
-void Map::init_matrix() {
+void Map::initMatrix() {
 	/* set the whole map obstacle */
 	memset(matrix, 1, sizeof(matrix));
 	/* set the avilable positions */
@@ -18,26 +18,26 @@ void Map::init_matrix() {
 	}
 }
 
-void Map::init_destination() {
+void Map::initDestination() {
 	destination = point(9, 4);
 }
 
-void Map::init_current_position() {
+void Map::initCurrentPosition() {
 	currentPosition = point(0, 4);
 }
 
-void Map::init_current_direction() {
+void Map::initCurrentDirection() {
 	currentDirection = d_east;
 }
 
 void Map::initial() {
-	init_matrix();
-	init_destination();
-	init_current_position();
-	init_current_direction();
+	initMatrix();
+	initDestination();
+	initCurrentPosition();
+	initCurrentDirection();
 }
 
-void Map::print_map() {
+void Map::printMap() {
 	printf("Current map:\n");
 	for (int i = 0; i < MAP_ROWS; i++) {
 		for (int j = 0; j < MAP_COLUMNS; j++) {
@@ -48,13 +48,13 @@ void Map::print_map() {
 	printf("\n\n");
 }
 
-void Map::init_dfs() {
+void Map::initDfs() {
 	memset(visited, false, sizeof(visited));
 	visited[currentPosition.x][currentPosition.y] = true;
 	currentPosition.step = 1;
 }
 
-bool Map::dfs_point_valid(const point& p) {
+bool Map::dfsPointValid(const point& p) {
 	if (!(p.x >= 0 && p.x < MAP_ROWS)) {
 		return false;
 	} else if (!(p.y >= 0 && p.y < MAP_COLUMNS)) {
@@ -67,7 +67,7 @@ bool Map::dfs_point_valid(const point& p) {
 	return true;
 }
 
-void Map::print_path(int length) {
+void Map::printPath(int length) {
 	for (int i = 0; i < length; i++) {
 		printf("(%d, %d)\n", path[i].x, path[i].y);
 	}
@@ -76,14 +76,14 @@ void Map::print_path(int length) {
 
 bool Map::dfs(point cur, int step) {
 	if (cur == destination) {
-		print_path(step);
+		printPath(step);
 		return true;
 	} else {
 		point p;
 		for (int i = 0; i < 4; i++) {
 			p.x = cur.x + oper_x[i];
 			p.y = cur.y + oper_y[i];
-			if (dfs_point_valid(p)) {
+			if (dfsPointValid(p)) {
 				path[step] = p;
 				p.step = cur.step + 1;
 				visited[p.x][p.y] = true;
@@ -96,8 +96,8 @@ bool Map::dfs(point cur, int step) {
 	return false;
 }
 
-void Map::update_next_position() {
-	init_dfs();
+void Map::updateNextPosition() {
+	initDfs();
 	if (dfs(currentPosition, 0)) {
 		nextPosition = path[0];
 	} else {
@@ -106,19 +106,19 @@ void Map::update_next_position() {
 	}
 }
 
-bool Map::next_position_avilable() {
+bool Map::nextPositionAvilable() {
 	return (matrix[nextPosition.x][nextPosition.y] == 0);
 }
 
-direction Map::get_current_direction() {
+direction Map::getCurrentDirection() {
 	return currentDirection;
 }
 
-void Map::set_current_direction(direction _currentDirection) {
+void Map::setCurrentDirection(direction _currentDirection) {
 	currentDirection = _currentDirection;
 }
 
-int Map::compare_current2next_direction(char axis) {
+int Map::compareCurrent2nextDirection(char axis) {
 	if (axis == 'x') {
 		if (currentPosition.x == nextPosition.x) {
 			return 0;
@@ -139,7 +139,7 @@ int Map::compare_current2next_direction(char axis) {
 	return 0;
 }
 
-void Map::print_position(int index) {
+void Map::printPosition(int index) {
 	switch (index) {
 		case 1:
 			printf("Current Position: %d, %d\n", currentPosition.x, currentPosition.y);
@@ -155,10 +155,16 @@ void Map::print_position(int index) {
 	}
 }
 
-bool Map::arrive_destination() {
+bool Map::arriveDestination() {
 	return (currentPosition == destination);
 }
 
-point Map::get_next_position() {
+point Map::getNextPosition() {
 	return nextPosition;
+}
+
+int Map::getMapAtPosition(const int& position) {
+	int row = position / MAP_ROWS;
+	int col = position % MAP_COLUMNS;
+	return matrix[row][col];
 }

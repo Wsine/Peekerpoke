@@ -1,41 +1,31 @@
 #include <iostream>
 #include <sstream>
 #include <stdlib.h>
-#include "../include/Car.h"
+#include "Util.h"
 using namespace std;
 
 int main() {
-	// Construct a car named No.1
-	Car car("car1");
 	// Print the current map
-	car.get_map().print_map();
+	Util::getCar().getMap().printMap();
 	while (true) {
 		// Print current position
-		car.get_map().print_position(1);
+		Util::getCar().getMap().printPosition(1);
 		// Update next position
-		car.get_map().update_next_position();
+		Util::getCar().getMap().updateNextPosition();
 		// Print next position
-		car.get_map().print_position(2);
+		Util::getCar().getMap().printPosition(2);
 		// Check if arrive destination
-		if (car.get_map().arrive_destination()) {
+		if (Util::getCar().getMap().arriveDestination()) {
 			printf("Arrived Destination\n");
-			car.get_motor().stop();
+			Util::getCar().getMotor().stop();
 			break;
 		} else {
 			// Adjust the direction based current2next position
-			car.adjust_direction();
-			car.get_peek().setPrefixName("ndn:/place/32");
-			car.get_peek().run("car1");
-			if (car.get_peek().isDataReceived()) {
-				printf("%s\n", car.get_peek().getReceivedData());
-			}
-			else {
-				printf("Peek failed\n");
-			}
+			Util::getCar().adjustDirection();
 			/* Communication */
 			// TODO: refactor the communication part
-			/*string m_interest = "";
-			point NextPosition = car.get_map().get_next_position();
+			string m_interest = "";
+			point NextPosition = Util::getCar().getMap().getNextPosition();
 			int interest_loc = NextPosition.x * 10 + NextPosition.y;
 			stringstream ss;
 			ss << interest_loc;
@@ -44,16 +34,15 @@ int main() {
 			const char* str = temp.c_str();
 			cout << str << endl;
 			system(str);
-			*/
 
 			/*****************/
 			// Print the current map
-			car.get_map().print_map();
+			Util::getCar().getMap().printMap();
 			// Check if next position is avilable
-			if (car.get_map().next_position_avilable()) {
-				car.get_motor().go_straight();
+			if (Util::getCar().getMap().nextPositionAvilable()) {
+				Util::getCar().getMotor().goStraight();
 			} else {
-				car.get_motor().stop();
+				Util::getCar().getMotor().stop();
 				printf("Next Position is Locked, Waitting...\n");
 			}
 		}

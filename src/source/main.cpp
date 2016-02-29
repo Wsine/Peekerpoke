@@ -22,20 +22,9 @@ int main() {
 		} else {
 			// Adjust the direction based current2next position
 			Util::getCar().adjustDirection();
-			/* Communication */
-			// TODO: refactor the communication part
-			string m_interest = "";
-			point NextPosition = Util::getCar().getMap().getNextPosition();
-			int interest_loc = NextPosition.x * 10 + NextPosition.y;
-			stringstream ss;
-			ss << interest_loc;
-			ss >> m_interest;
-			string temp = "sudo /home/ubuntu/ndn-tools/build/bin/ndnpeek ndn:/place/" + m_interest + " -f -p -w 3";
-			const char* str = temp.c_str();
-			cout << str << endl;
-			system(str);
-
-			/*****************/
+			// Communication to ask for the status of next position.
+			std::string strNextPosition = Util::getCar().getMap().getNextPosition().toString();
+			Util::getCar().startPeek(strNextPosition);
 			// Print the current map
 			Util::getCar().getMap().printMap();
 			// Check if next position is avilable

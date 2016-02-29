@@ -1,7 +1,7 @@
 #ifndef PEEK_H_
 #define PEEK_H_
 
-#include "../../lib/ndn-tools/commmon.hpp"
+#include "../../lib/ndn-tools/common.hpp"
 #include <fstream>
 #include <sstream>
 #include <stdio.h>
@@ -53,10 +53,9 @@ public:
 		bool isDataReceived();
 public:
 		Interest createInterestPacket(std::string m_name);
-		void collectCurrentCarNumber(const Block& block);
+		void CollectCurrentCarNumber(const Block& block);
 		void onData(const Interest& interest, Data& data);
 		void run();
-		void usage();
 		std::string getReceivedData();
 };
 

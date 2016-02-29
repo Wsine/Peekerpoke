@@ -162,7 +162,14 @@ bool Map::arriveDestination() {
 point Map::getNextPosition() {
 	return nextPosition;
 }
-
+point Map::getCurrentPosition() {
+	point temp;
+	printf("Please input current position: ");
+	std::cin >> temp.x >> temp.y;
+	currentPosition.x = temp.x;
+	currentPosition.y = temp.y;
+	return currentPosition;
+}
 int Map::getMapAtPosition(const int& position) {
 	int row = position / MAP_ROWS;
 	int col = position % MAP_COLUMNS;

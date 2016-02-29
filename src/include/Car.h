@@ -8,8 +8,8 @@
 #include <pthread.h>
 #include "Map.h"
 #include "Motor.h"
-#include "Peek.h"
 #include "Poke.h"
+#include "Peek.h"
 using namespace std;
 
 class Car {
@@ -17,7 +17,6 @@ private:
 	string m_name;
 	Map m_map;
 	Motor m_motor;
-	Peek m_peek;
 /* Method */
 public:
 	Car();
@@ -27,6 +26,7 @@ public:
 	Map& getMap();
 	Motor& getMotor();
 	friend void* startPoke(void *ptr);
+	void startPeek(std::string ptr);
 	void forkThreadForPoke();
 };
 

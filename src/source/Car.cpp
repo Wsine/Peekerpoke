@@ -1,7 +1,7 @@
 #include "Car.h"
 
 Car::Car() {
-	m_name = "Car No.1";
+	m_name = "Car1";
 	forkThreadForPoke();
 }
 
@@ -114,6 +114,22 @@ void* startPoke(void *ptr) {
 	return NULL;
 }
 
+void Car::startPeek(std::string ptr) {
+	const std::string ndnPrefix = "ndn:/place/"; 
+	Peek peek;
+	peek.setMustBeFresh();
+	peek.setPayloadOnly();
+	peek.setTimeout(3);
+	peek.setPrefixName(ndnPrefix + ptr);
+	peek.run();
+	if (peek.isDataReceived()) {
+		printf("Received Data Successfully.\n");
+	}
+	else {
+		printf("Data Received Failed.\n");
+	}
+}
+
 void Car::forkThreadForPoke() {
 	pthread_t thread;
 	int createThreadResult;
@@ -124,3 +140,4 @@ void Car::forkThreadForPoke() {
 		printf("Try Create Sub Thread Failed.\n");
 	}
 }
+

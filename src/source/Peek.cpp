@@ -1,18 +1,32 @@
 #include "../include/Peek.h"
 
 Peek::Peek() 
-		: thisCarNumber("Car2")
-		, m_mustBeFresh(true)
-		, m_isPayloadOnlySet(true)
+		: thisCarNumber("Car1")
+		, m_mustBeFresh(false)
+		, m_isPayloadOnlySet(false)
 		, m_isChildSelectorRightmost(false)
-		, m_isDataReceived = (false)
-		, m_timeout(1)
-		, m_ttl(3)
+		, m_isDataReceived(false)
+		, m_timeout(-1)
+		, m_ttl(-1)
 		, m_minSuffixComponents(-1)
 		, m_maxSuffixComponents(-1)
 		, m_interestLifetime(-1) {
 }
-
+void Peek::usage() {
+	printf("\n Usage:\n [-f] [-r] [-m min] [-M max] [-l lifetime] [-p] [-w timeout] ndn:/name\n"
+      "   Get one data item matching the name prefix and write it to stdout\n"
+      "   [-f]          - set MustBeFresh\n"
+      "   [-r]          - set ChildSelector to select rightmost child\n"
+      "   [-m min]      - set MinSuffixComponents\n"
+      "   [-M max]      - set MaxSuffixComponents\n"
+      "   [-l lifetime] - set InterestLifetime in time::milliseconds\n"
+      "   [-p]          - print payload only, not full packet\n"
+      "   [-w timeout]  - set Timeout in time::milliseconds\n"
+      "   [-v]          - verbose output\n"
+      "   [-h]          - print help and exit\n"
+      "   [-V]          - print version and exit\n"
+      "\n");
+}
 Peek::~Peek() {
 	;
 }
@@ -68,7 +82,7 @@ void Peek::onTimeout(const Interest& interest) {
 	;
 }
 
-bool Peek::isDataReceived() const {
+bool Peek::isDataReceived() {
 	return m_isDataReceived;
 }
 
@@ -115,7 +129,7 @@ void Peek::onData(const Interest& interest, Data& data) {
 	}	
 }
 
-void Peek::rNdnun() {
+void Peek::run() {
 	isBroadcast = true;
 	haveReceived = "/filter/" + thisCarNumber + "/";
 	model = "/filter/" + thisCarNumber + "/";
@@ -125,13 +139,15 @@ void Peek::rNdnun() {
 			m_ttl--;
 			if (m_ttl != 0) {
 				if (isBroadcast == true) {
-					printf("Current model: %s\n", model);
+					std::cout << "Current model: " << model << std::endl;
+					//printf("Current model: %s\n", model);
 					m_face.expressInterest(createInterestPacket(model), bind(&Peek::onData, this, _1, _2), bind(&Peek::onTimeout, this, _1));
 					m_face.processEvents();
 					isBroadcast = false;
 				}
 				else  {
-					printf("Current model: %s\n", model);
+					std::cout << "Current model: " << model << std::endl;
+					//printf("Current model: %s\n", model);
 					m_face.expressInterest(createInterestPacket(model), bind(&Peek::onData, this, _1, _2), bind(&Peek::onTimeout, this, _1));
 					m_face.processEvents();
 				}	
@@ -149,20 +165,4 @@ void Peek::rNdnun() {
 
 std::string Peek::getReceivedData() {
 	return m_received_data;
-}
-
-void Peek::usage() {
-	printf("\n Usage:\n [-f] [-r] [-m min] [-M max] [-l lifetime] [-p] [-w timeout] ndn:/name\n"
-      "   Get one data item matching the name prefix and write it to stdout\n"
-      "   [-f]          - set MustBeFresh\n"
-      "   [-r]          - set ChildSelector to select rightmost child\n"
-      "   [-m min]      - set MinSuffixComponents\n"
-      "   [-M max]      - set MaxSuffixComponents\n"
-      "   [-l lifetime] - set InterestLifetime in time::milliseconds\n"
-      "   [-p]          - print payload only, not full packet\n"
-      "   [-w timeout]  - set Timeout in time::milliseconds\n"
-      "   [-v]          - verbose output\n"
-      "   [-h]          - print help and exit\n"
-      "   [-V]          - print version and exit\n"
-      "\n");
 }

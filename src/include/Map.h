@@ -12,6 +12,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include "Util.h"
+
 using namespace std;
 
 #define MAP_ROWS 10
@@ -42,6 +44,9 @@ struct point {
 	bool operator== (const point& other) {
 		return (x == other.x && y == other.y);
 	}
+	string toString() {
+		return Util::int2string(x * MAP_ROWS + y);
+	}
 };
 
 class Map {
@@ -66,6 +71,7 @@ public:
 	bool arriveDestination();
 	void printMap();
 	point getNextPosition();
+	point getCurrentPosition();
 	int getMapAtPosition(const int& position);
 private:
 	void initMatrix();

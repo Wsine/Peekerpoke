@@ -1,14 +1,13 @@
 #include "Poke.h"
 
 Poke::Poke()
-	: thisCarNumber("Car2")
+	: thisCarNumber("Car1")
 	, m_isForceDataSet(false)
 	, m_isUseDigestSha256Set(false)
 	, m_isLastAsFinalBlockIdSet(false)
 	, m_freshnessPeriod(-1)
 	, m_timeout(-1)
-	, m_isDataSent(false) {
-	
+	, m_isDataSent(false) {	
 }
 
 void Poke::usage() {
@@ -77,10 +76,9 @@ shared_ptr<Data> Poke::createDataPacket(Name GetInterestName, int SearchResult) 
 	auto dataPacket = make_shared<Data>(GetInterestName);
 	std::string timeStamp = time::toIsoString(time::system_clock::now());
 	std::string payload;
-	std::stringstream ss;
-	ss << SearchResult;
-	ss >> payload;
-	payload += "/",  payload += timeStamp,  payload += "/",  payload += thisCarNumber,  payload += "/";
+	
+	payload = Util::int2string(SearchResult);
+	payload += "/" + timeStamp + "/" + thisCarNumber + "/";
 	m_payload = payload;
 	unsigned int loc = payload.find("unknown");
 	/* The information is unknown,  we don't send it. */
@@ -120,10 +118,10 @@ shared_ptr<Data> Poke::createDataPacket(Name GetInterestName, int SearchResult) 
 int Poke::GetInformationFromMemory(int AimPosition) {
 	printf("Aim position is: %d\n", AimPosition);
 	int SearchResult = Util::getCar().getMap().getMapAtPosition(AimPosition);
-	if (SearchResult == -1) {
+	/*if (SearchResult == -1) {
 		printf("We don't have the information.\n");
 		return 9;
-	}
+	}*/
 	printf("Search successfully.\n");
 	return SearchResult;
 }

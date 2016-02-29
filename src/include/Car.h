@@ -9,6 +9,7 @@
 #include "Map.h"
 #include "Motor.h"
 #include "Poke.h"
+#include "Peek.h"
 using namespace std;
 
 class Car {
@@ -25,6 +26,7 @@ public:
 	Map& getMap();
 	Motor& getMotor();
 	friend void* startPoke(void *ptr);
+	void startPeek(std::string ptr);
 	void forkThreadForPoke();
 };
 

@@ -23,8 +23,8 @@
  * ndn-tools, e.g., in COPYING.md file.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NDN_TOOLS_CORE_COMMON_HPP
-#define NDN_TOOLS_CORE_COMMON_HPP
+#ifndef NDN_TOOLS_COMMON_HPP
+#define NDN_TOOLS_COMMON_HPP
 
 #ifdef WITH_TESTS
 #define VIRTUAL_WITH_TESTS virtual
@@ -78,4 +78,4 @@ namespace scheduler = util::scheduler;
 
 } // namespace ndn
 
-#endif // NDN_TOOLS_CORE_COMMON_HPP
+#endif // NDN_TOOLS_COMMON_HPP

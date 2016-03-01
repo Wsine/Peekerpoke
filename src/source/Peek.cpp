@@ -1,7 +1,7 @@
 #include "../include/Peek.h"
 
 Peek::Peek() 
-		: thisCarNumber("Car2")
+		: thisCarNumber("Car1")
 		, m_mustBeFresh(false)
 		, m_isPayloadOnlySet(false)
 		, m_isChildSelectorRightmost(false)

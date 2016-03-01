@@ -1,7 +1,7 @@
 #include "Poke.h"
 
 Poke::Poke()
-	: thisCarNumber("Car2")
+	: thisCarNumber("Car1")
 	, m_isForceDataSet(false)
 	, m_isUseDigestSha256Set(false)
 	, m_isLastAsFinalBlockIdSet(false)

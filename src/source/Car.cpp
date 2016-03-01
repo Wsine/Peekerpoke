@@ -1,7 +1,7 @@
 #include "Car.h"
 
 Car::Car() {
-	m_name = "Car2";
+	m_name = "Car1";
 	forkThreadForPoke();
 }
 

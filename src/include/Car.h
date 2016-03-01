@@ -1,4 +1,5 @@
 #ifndef CAR_H_
+#warning "Ready to define CAR_H_"
 #define CAR_H_
 
 #include <stdlib.h>
@@ -11,6 +12,8 @@
 #include "Poke.h"
 #include "Peek.h"
 using namespace std;
+
+//class Map; // Fix in Linux; Stupid!!!
 
 class Car {
 private:

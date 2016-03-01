@@ -1,4 +1,5 @@
 #ifndef UTIL_H_
+#warning "Ready to define UTIL_H_"
 #define UTIL_H_
 
 #include <string.h>
@@ -12,7 +13,7 @@ private:
 	static Car* car;
 public:
 	static Car& getCar();
-	static string int2string(int i);
+	static std::string int2string(int i);
 };
 
 #endif

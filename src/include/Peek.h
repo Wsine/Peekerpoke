@@ -1,4 +1,5 @@
 #ifndef PEEK_H_
+#warning "Ready to define PEEK_H_"
 #define PEEK_H_
 
 #include "../../lib/ndn-tools/common.hpp"

@@ -1,4 +1,5 @@
 #ifndef MAP_H_
+#warning "Ready to define MAP_H_"
 #define MAP_H_
 
 #include <iostream>
@@ -12,7 +13,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include "Util.h"
+
 
 using namespace std;
 
@@ -44,9 +45,7 @@ struct point {
 	bool operator== (const point& other) {
 		return (x == other.x && y == other.y);
 	}
-	string toString() {
-		return Util::int2string(x * MAP_ROWS + y);
-	}
+	string toString();
 };
 
 class Map {

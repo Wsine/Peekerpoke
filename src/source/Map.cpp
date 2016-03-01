@@ -1,4 +1,5 @@
 #include "Map.h"
+#include "Util.h"
 
 Map::Map() {
 	initial();
@@ -162,6 +163,7 @@ bool Map::arriveDestination() {
 point Map::getNextPosition() {
 	return nextPosition;
 }
+
 point Map::getCurrentPosition() {
 	point temp;
 	printf("Please input current position: ");
@@ -170,8 +172,14 @@ point Map::getCurrentPosition() {
 	currentPosition.y = temp.y;
 	return currentPosition;
 }
+
 int Map::getMapAtPosition(const int& position) {
 	int row = position / MAP_ROWS;
 	int col = position % MAP_COLUMNS;
 	return matrix[row][col];
+}
+
+string point::toString() {
+	string temp = Util::int2string(x * MAP_ROWS + y);
+	return temp;
 }

@@ -101,7 +101,7 @@ void Peek::CollectCurrentCarNumber(const Block& block)  {
 	std::string data = reinterpret_cast<const char*>(block.value());
 	char a = '#';
 	data.resize(block.value_size(),  a);
-	unsigned int loc = data.find("car");
+	unsigned int loc = data.find("Car");
 	int i;
 	if  (loc != std::string::npos)  {
 		for (i = loc; i < data.size() ; i++)  {

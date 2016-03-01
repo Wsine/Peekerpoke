@@ -29,7 +29,13 @@ int main() {
 			Util::getCar().getMap().printMap();
 			// Check if next position is avilable
 			if (Util::getCar().getMap().nextPositionAvilable()) {
-				Util::getCar().getMotor().goStraight();
+				// TODO: Update current positon via NFC Module
+				// Util::getCar().getMotor().goStraight();
+
+				// Set to auto-incremented current positon by x
+				point newCurrentPosition = Util::getCar().getMap().getCurrentPosition();
+				newCurrentPosition = point(newCurrentPosition.x + 1, newCurrentPosition.y);
+				Util::getCar().getMap().setCurrentPosition(newCurrentPosition);
 			} else {
 				Util::getCar().getMotor().stop();
 				printf("Next Position is Locked, Waitting...\n");

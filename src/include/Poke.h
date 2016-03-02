@@ -17,12 +17,13 @@
 
 using namespace ndn;
 
+#define SEARCH_MAP_FAILED 9
+
 class Poke : boost::noncopyable {
 private:
 	std::string m_payload;
-	std::string thisCarNumber;
+	std::string m_carName;
 	KeyChain m_keyChain;
-	bool ifUnknown;
 	bool m_isForceDataSet;
 	bool m_isUseDigestSha256Set;
 	shared_ptr<Name> m_identityName;
@@ -35,6 +36,7 @@ private:
 /* Method */
 public:
 	explicit Poke();
+	Poke(std::string carName);
 	void usage();
 	void setForceData();
 	void setUseDigestSha256();
@@ -47,10 +49,9 @@ public:
 	bool isDataSent() const;
 	void onTimeout(const Interest& interest);
 	void onData(const Interest& interest, Data& data);
-	shared_ptr<Data> createDataPacket(Name GetInterestName,  int SearchResult);
+	shared_ptr<Data> createDataPacket(Name GetInterestName, int SearchResult, std::string aimAtPosition);
 	int GetInformationFromMemory(int AimPosition);
 	int GetAimPosition(std::string getName);
-	std::string GetAimPositionString(int pos);
 	int GetTypeOfInterest(std::string AimPosition, Interest interest);
 	void BroadcastData(int AimPosition);
 	void onInterest(const Name& name, const Interest& interest);

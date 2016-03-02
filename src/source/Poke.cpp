@@ -1,7 +1,17 @@
 #include "Poke.h"
 
 Poke::Poke()
-	: thisCarNumber("Car1")
+	: m_carName("Car2")
+	, m_isForceDataSet(false)
+	, m_isUseDigestSha256Set(false)
+	, m_isLastAsFinalBlockIdSet(false)
+	, m_freshnessPeriod(-1)
+	, m_timeout(-1)
+	, m_isDataSent(false) {	
+}
+
+Poke::Poke(std::string carName)
+	: m_carName(carName)
 	, m_isForceDataSet(false)
 	, m_isUseDigestSha256Set(false)
 	, m_isLastAsFinalBlockIdSet(false)
@@ -65,30 +75,22 @@ bool Poke::isDataSent() const	{
 }
 
 void Poke::onTimeout(const Interest& interest) {
-	printf("Should not execute here.\n\n");
+	printf("Interest waits for response time out.\n\n");
 }
 
 void Poke::onData(const Interest& interest, Data& data) {
 	;
 }
 
-shared_ptr<Data> Poke::createDataPacket(Name GetInterestName, int SearchResult) {
+shared_ptr<Data> Poke::createDataPacket(Name GetInterestName, int SearchResult, std::string aimAtPosition) {
 	auto dataPacket = make_shared<Data>(GetInterestName);
 	std::string timeStamp = time::toIsoString(time::system_clock::now());
 	std::string payload;
 	
 	payload = Util::int2string(SearchResult);
-	payload += "/" + timeStamp + "/" + thisCarNumber + "/";
+	payload += "/" + aimAtPosition + "/" + timeStamp + "/" + m_carName + "/";
 	m_payload = payload;
-	unsigned int loc = payload.find("unknown");
-	/* The information is unknown,  we don't send it. */
-	if (loc != std::string::npos) {
-		ifUnknown = true;
-	}
-	else {
-		ifUnknown = false;
-	}
-	dataPacket->setContent(reinterpret_cast<const uint8_t*>(payload.c_str()), payload.length());
+	dataPacket->setContent(reinterpret_cast<const uint8_t*>(m_payload.c_str()), m_payload.length());
 	if (m_freshnessPeriod >= time::milliseconds::zero()) {
 		dataPacket->setFreshnessPeriod(m_freshnessPeriod);
 	}
@@ -116,13 +118,12 @@ shared_ptr<Data> Poke::createDataPacket(Name GetInterestName, int SearchResult) 
 }
 
 int Poke::GetInformationFromMemory(int AimPosition) {
-	printf("Aim position is: %d\n", AimPosition);
-	int SearchResult = Util::getCar().getMap().getMapAtPosition(AimPosition);
-	/*if (SearchResult == -1) {
-		printf("We don't have the information.\n");
-		return 9;
-	}*/
-	printf("Search successfully.\n");
+	int SearchResult = SEARCH_MAP_FAILED;
+	try {
+		SearchResult = Util::getCar().getMap().getMapAtPosition(AimPosition);
+	} catch (std::exception& e) {
+		SearchResult = SEARCH_MAP_FAILED;
+	}
 	return SearchResult;
 }
 
@@ -136,14 +137,6 @@ int Poke::GetAimPosition(std::string getName) {
 	} 
 	int AimPosition = (PlaceNumber[0] - '0') * 10 + PlaceNumber[1] - '0';
 	return AimPosition;
-}
-
-std::string Poke::GetAimPositionString(int pos) {
-	std::stringstream ss;
-	std::string str;
-	ss << pos;
-	ss >> str;
-	return str;
 }
 
 int Poke::GetTypeOfInterest(std::string AimPosition, Interest interest) {
@@ -179,7 +172,6 @@ void Poke::onInterest(const Name& name, const Interest& interest) {
 	Name GetInterestName = interest.getName();
 	std::string getName = GetInterestName.toUri();
 	int AimPosition = GetAimPosition(getName);
-	// std::string AimPosStr = GetAimPositionString(AimPosition);
 	std::string AimPosStr = Util::int2string(AimPosition);
 	int Type = GetTypeOfInterest(AimPosStr,  interest);
 	int SearchResult =  GetInformationFromMemory(AimPosition);
@@ -189,7 +181,7 @@ void Poke::onInterest(const Name& name, const Interest& interest) {
 		case 1: {
 			printf("Receive interest. The interest is broadcast model. We should send the data.\n\n");
 			if (SearchResult != 9) {
-				shared_ptr<Data> dataPacket = createDataPacket(GetInterestName, SearchResult);
+				shared_ptr<Data> dataPacket = createDataPacket(GetInterestName, SearchResult, AimPosStr);
 				m_face.put(*dataPacket);
 				BroadcastData(AimPosition);
 			}
@@ -201,14 +193,14 @@ void Poke::onInterest(const Name& name, const Interest& interest) {
 		/* We get the interest which is filtered. We should judge whether our car has been banned. */
 		case 2: {
 			/* To search if our car number is in the filter. */
-			unsigned int location = getName.find(thisCarNumber, 0);
+			unsigned int location = getName.find(m_carName, 0);
 			if (location != std::string::npos) {
 				printf("The information from this car has been received,  we don't need to send it.\n");
 			}
 			else {
 				printf("We are not in the filter,  we should send the data again.\n");
-				if (SearchResult != 9) {
-					shared_ptr<Data> dataPacket = createDataPacket(GetInterestName, SearchResult);
+				if (SearchResult != SEARCH_MAP_FAILED) {
+					shared_ptr<Data> dataPacket = createDataPacket(GetInterestName, SearchResult, AimPosStr);
 					m_face.put(*dataPacket);
 					BroadcastData(AimPosition);
 				}

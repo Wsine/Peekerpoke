@@ -1,5 +1,4 @@
 #ifndef POKE_H_
-#warning "Ready to define POKE_H_"
 #define POKE_H_
 
 #include "../../lib/ndn-tools/common.hpp"

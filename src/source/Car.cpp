@@ -123,9 +123,10 @@ void Car::startPeek(std::string ptr) {
 	peek.setPrefixName(ndnPrefix + ptr);
 	peek.run();
 	if (peek.isDataReceived()) {
-		printf("Received Data Successfully.\n");
 		std::string receivedData = peek.getReceivedData();
-		printf("receivedData = %s\n", receivedData.c_str());
+		point location = Util::extractMapLocation(receivedData);
+		int result = Util::extractMapResult(receivedData);
+		m_map.setMapAtPosition(location, result);
 	}
 	else {
 		printf("Data Received Failed.\n");

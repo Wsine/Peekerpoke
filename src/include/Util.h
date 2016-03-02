@@ -3,6 +3,7 @@
 
 #include <string.h>
 #include <sstream>
+#include "Map.h"
 #include "Car.h"
 
 class Car; // Fix in Linux; Stupid!!!
@@ -13,6 +14,8 @@ private:
 public:
 	static Car& getCar();
 	static std::string int2string(int i);
+	static int extractMapResult(std::string s);
+	static point extractMapLocation(std::string s);
 };
 
 #endif

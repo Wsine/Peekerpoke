@@ -1,6 +1,17 @@
 #include "Util.h"
 
 Car* Util::car = 0;
+Car& Util::newCar(std::string s) {
+	// Remerber: only called once
+	if (!car) {
+		car = new Car(s);
+	} else {
+		delete car;
+		car = new Car(s);
+	}
+	return car;
+}
+
 Car& Util::getCar() {
 	if (!car) {
 		car = new Car();

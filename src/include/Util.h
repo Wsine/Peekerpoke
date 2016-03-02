@@ -12,6 +12,7 @@ class Util {
 private:
 	static Car* car;
 public:
+	static Car& newCar(std::string s);
 	static Car& getCar();
 	static std::string int2string(int i);
 	static int extractMapResult(std::string s);

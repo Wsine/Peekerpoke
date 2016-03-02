@@ -101,7 +101,8 @@ Motor& Car::getMotor() {
 }
 
 void* startPoke(void *ptr) {
-	Poke poke;
+	std::string carName((char*)ptr);
+	Poke poke(carName);
 	char *preFixName = "ndn:/place";
 	poke.setPrefixName(preFixName);
 	poke.run();
@@ -116,7 +117,7 @@ void* startPoke(void *ptr) {
 
 void Car::startPeek(std::string ptr) {
 	const std::string ndnPrefix = "ndn:/place/"; 
-	Peek peek;
+	Peek peek(m_name);
 	peek.setMustBeFresh();
 	peek.setPayloadOnly();
 	peek.setTimeout(3);
@@ -136,7 +137,7 @@ void Car::startPeek(std::string ptr) {
 void Car::forkThreadForPoke() {
 	pthread_t thread;
 	int createThreadResult;
-	createThreadResult = pthread_create(&thread, NULL, startPoke, NULL);
+	createThreadResult = pthread_create(&thread, NULL, startPoke, (void*)m_name.c_str());
 	if (createThreadResult) {
 		printf("Try Create Sub Thread Failed.\n");
 	} else {

@@ -5,6 +5,8 @@
 using namespace std;
 
 int main() {
+	// Construct a new car with a name
+	Util::newCar("Car1");
 	// Print the current map
 	Util::getCar().getMap().printMap();
 	while (true) {

@@ -124,6 +124,8 @@ void Car::startPeek(std::string ptr) {
 	peek.run();
 	if (peek.isDataReceived()) {
 		printf("Received Data Successfully.\n");
+		std::string receivedData = peek.getReceivedData();
+		printf("receivedData = %s\n", receivedData.c_str());
 	}
 	else {
 		printf("Data Received Failed.\n");
@@ -135,9 +137,10 @@ void Car::forkThreadForPoke() {
 	int createThreadResult;
 	createThreadResult = pthread_create(&thread, NULL, startPoke, NULL);
 	if (createThreadResult) {
-		printf("Sub Thread Started.\n");
-	} else {
 		printf("Try Create Sub Thread Failed.\n");
+	} else {
+		printf("Sub Thread Started.\n");
+		
 	}
 }
 

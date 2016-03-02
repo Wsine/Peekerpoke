@@ -8,13 +8,21 @@ Map::Map() {
 Map::~Map() {}
 
 void Map::initMatrix() {
+	int i,  j;
 	/* set the whole map obstacle */
-	memset(matrix, 1, sizeof(matrix));
+	//memset(matrix, 1, sizeof(matrix));
+	for (i = 0; i < MAP_ROWS; i++) {
+		for (j = 0; j < MAP_COLUMNS; j++) {
+			matrix[i][j] = 1;
+		}
+	}
+
+
 	/* set the avilable positions */
-	for (int i = 0; i < MAP_ROWS; i++) {
+	for (i = 0; i < MAP_ROWS; i++) {
 		matrix[i][4] = 0;
 	}
-	for (int i = 0; i < MAP_COLUMNS; i++) {
+	for (i = 0; i < MAP_COLUMNS; i++) {
 		matrix[4][i] = 0;
 	}
 }
@@ -42,7 +50,7 @@ void Map::printMap() {
 	printf("Current map:\n");
 	for (int i = 0; i < MAP_ROWS; i++) {
 		for (int j = 0; j < MAP_COLUMNS; j++) {
-			printf("%d \n", matrix[i][j]);
+			printf("%d ", matrix[i][j]);
 		}
 		printf("\n");
 	}
@@ -179,6 +187,10 @@ string point::toString() {
 	return temp;
 }
 
-void point::setCurrentPosition(const point& p) {
+void Map::setCurrentPosition(const point& p) {
 	currentPosition = p;
+}
+
+void Map::setMapAtPosition(const point& p, const int& value) {
+	matrix[p.x][p.y] = value;
 }

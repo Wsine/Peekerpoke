@@ -53,6 +53,7 @@ public:
 		void onTimeout(const Interest& interest);
 		bool isDataReceived();
 public:
+		std::string getDataString(const Block& block);
 		Interest createInterestPacket(std::string m_name);
 		void CollectCurrentCarNumber(const Block& block);
 		void onData(const Interest& interest, Data& data);

@@ -73,6 +73,7 @@ public:
 	point getCurrentPosition();
 	int getMapAtPosition(const int& position);
 	void setCurrentPosition(const point& p);
+	void setMapAtPosition(const point& p, const int& value);
 private:
 	void initMatrix();
 	void initDestination();

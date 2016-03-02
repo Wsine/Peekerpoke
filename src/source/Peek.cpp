@@ -115,12 +115,30 @@ void Peek::CollectCurrentCarNumber(const Block& block)  {
 	}
 }
 
+std::string Peek::getDataString(const Block& block) {
+	std::string get_inf = reinterpret_cast<const char*>(block.value());
+	char a = '#';
+	get_inf.resize(block.value_size(),  a);
+	unsigned int loc = get_inf.find("Car");
+	std::string result = "";
+	if  (loc != std::string::npos)  {
+		int i;
+		for (i = 0 ; i <= loc - 1; i++)  {
+			result += get_inf[i];
+		}
+	}
+	else  {
+		printf("Shold not execute\n");
+		//std::cout << "Should not execute here!" << std::endl << std::endl; 
+	}
+	return result;
+}
 void Peek::onData(const Interest& interest, Data& data) {
 	m_isDataReceived = true;
 	if (m_isPayloadOnlySet) {
 		const Block& block = data.getContent();
-		Name GetInterestName = interest.getName();
-		m_received_data = GetInterestName.toUri();
+		//Name GetInterestName = interest.getName();
+		m_received_data = getDataString(block);
 		CollectCurrentCarNumber(block);
 	}
 	else {
@@ -130,7 +148,6 @@ void Peek::onData(const Interest& interest, Data& data) {
 }
 
 void Peek::run() {
-	isBroadcast = true;
 	haveReceived = "/filter/" + thisCarNumber + "/";
 	model = "/filter/" + thisCarNumber + "/";
 	try {
@@ -138,19 +155,10 @@ void Peek::run() {
 			sleep(1);
 			m_ttl--;
 			if (m_ttl != 0) {
-				if (isBroadcast == true) {
-					std::cout << "Current model: " << model << std::endl;
-					//printf("Current model: %s\n", model);
-					m_face.expressInterest(createInterestPacket(model), bind(&Peek::onData, this, _1, _2), bind(&Peek::onTimeout, this, _1));
-					m_face.processEvents();
-					isBroadcast = false;
-				}
-				else  {
-					std::cout << "Current model: " << model << std::endl;
-					//printf("Current model: %s\n", model);
-					m_face.expressInterest(createInterestPacket(model), bind(&Peek::onData, this, _1, _2), bind(&Peek::onTimeout, this, _1));
-					m_face.processEvents();
-				}	
+				std::cout << "Current model: " << model << std::endl;
+				//printf("Current model: %s\n", model);
+				m_face.expressInterest(createInterestPacket(model), bind(&Peek::onData, this, _1, _2), bind(&Peek::onTimeout, this, _1));
+				m_face.processEvents();
 			}
 			else  {
 				haveReceived = "";

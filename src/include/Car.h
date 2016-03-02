@@ -1,5 +1,4 @@
 #ifndef CAR_H_
-#warning "Ready to define CAR_H_"
 #define CAR_H_
 
 #include <stdlib.h>

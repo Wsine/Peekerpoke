@@ -1,5 +1,4 @@
 #ifndef UTIL_H_
-#warning "Ready to define UTIL_H_"
 #define UTIL_H_
 
 #include <string.h>

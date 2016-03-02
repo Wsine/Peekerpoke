@@ -1,5 +1,4 @@
 #ifndef MAP_H_
-#warning "Ready to define MAP_H_"
 #define MAP_H_
 
 #include <iostream>

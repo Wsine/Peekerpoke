@@ -107,11 +107,11 @@ void Peek::CollectCurrentCarNumber(const Block& block)  {
 		for (i = loc; i < data.size() ; i++)  {
 			haveReceived += data[i];
 		}
-		model = haveReceived;
+		currentFilterCarNumber = haveReceived;
 	}
 	else  {
-		printf("We didn't find car number in the payload of the data packet,  we regarded it as a broadcast packet.\n");
-		model = "broadcast";
+		printf("Did not find producer's Car number in the payload of data.\n");
+		currentFilterCarNumber = "broadcast";
 	}
 }
 
@@ -128,11 +128,11 @@ std::string Peek::getDataString(const Block& block) {
 		}
 	}
 	else  {
-		printf("Shold not execute\n");
-		//std::cout << "Should not execute here!" << std::endl << std::endl; 
+		printf("Did not find producer's Car number in the payload of data.\n");
 	}
 	return result;
 }
+
 void Peek::onData(const Interest& interest, Data& data) {
 	m_isDataReceived = true;
 	if (m_isPayloadOnlySet) {
@@ -149,15 +149,14 @@ void Peek::onData(const Interest& interest, Data& data) {
 
 void Peek::run() {
 	haveReceived = "/filter/" + thisCarNumber + "/";
-	model = "/filter/" + thisCarNumber + "/";
+	currentFilterCarNumber = "/filter/" + thisCarNumber + "/";
 	try {
 		while (1) {
 			sleep(1);
 			m_ttl--;
 			if (m_ttl != 0) {
-				std::cout << "Current model: " << model << std::endl;
-				//printf("Current model: %s\n", model);
-				m_face.expressInterest(createInterestPacket(model), bind(&Peek::onData, this, _1, _2), bind(&Peek::onTimeout, this, _1));
+				printf("Current currentFilterCarNumber =  %s\n", currentFilterCarNumber.c_str());
+				m_face.expressInterest(createInterestPacket(currentFilterCarNumber), bind(&Peek::onData, this, _1, _2), bind(&Peek::onTimeout, this, _1));
 				m_face.processEvents();
 			}
 			else  {

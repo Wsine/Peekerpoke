@@ -18,7 +18,7 @@ using namespace ndn;
 class Peek : boost :: noncopyable {
 private:
 		std::string thisCarNumber;
-		std::string model;
+		std::string currentFilterCarNumber;
 		std::string haveReceived;
   		std::string m_programName;
 		std::string m_prefixName;

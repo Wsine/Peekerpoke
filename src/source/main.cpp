@@ -1,14 +1,16 @@
 #include <iostream>
 #include <sstream>
 #include <stdlib.h>
+#include "Map.h"
 #include "Util.h"
 using namespace std;
 
 int main() {
 	// Construct a new car with a name
-	Util::newCar("Car1");
+	Util::newCar("Car2");
 	// Print the current map
 	Util::getCar().getMap().printMap();
+	std::string strNextPosition = "";
 	while (true) {
 		// Print current position
 		Util::getCar().getMap().printPosition(1);
@@ -25,8 +27,19 @@ int main() {
 			// Adjust the direction based current2next position
 			Util::getCar().adjustDirection();
 			// Communication to ask for the status of next position.
-			std::string strNextPosition = Util::getCar().getMap().getNextPosition().toString();
-			Util::getCar().startPeek(strNextPosition);
+			point nextPosition = Util::getCar().getMap().getNextPosition();
+			if (nextPosition != INF_POINT) {
+				// Can get the road
+				strNextPosition = nextPosition.toString();
+				Util::getCar().startPeek(strNextPosition);
+			} else if (strNextPosition == "") {
+				// There is no way to get there
+				printf("Can not get the road to the destination at the beginning.\n");
+				break;
+			} else {
+				// Peek to ask for the previous next position
+				Util::getCar().startPeek(strNextPosition);
+			}
 			// Print the current map
 			Util::getCar().getMap().printMap();
 			// Check if next position is avilable

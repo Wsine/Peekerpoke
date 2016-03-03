@@ -19,6 +19,7 @@ using namespace std;
 #define MAP_ROWS 10
 #define MAP_COLUMNS 10
 #define PATH_LENGTH 50
+#define INF_POINT point(-1, -1)
 
 /*
  * define go_east go_west go_south go_north
@@ -43,6 +44,9 @@ struct point {
 	}
 	bool operator== (const point& other) {
 		return (x == other.x && y == other.y);
+	}
+	bool operator!= (const point& other) {
+		return (x != other.x || y != other.y);
 	}
 	string toString();
 };
@@ -76,7 +80,7 @@ public:
 private:
 	void initMatrix();
 	void initDestination();
-	void initCurrentPosition();
+	void initCurrentAndNextPosition();
 	void initCurrentDirection();
 	void initial();
 	void initDfs();

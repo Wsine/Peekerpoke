@@ -37,12 +37,22 @@ $(OBJ_DIR): $(BUILD_DIR)
 $(BUILD_DIR):
 	mkdir $(BUILD_DIR)
 
+run:
+	sudo .$(BIN_DIR)/$(PROGRAM) || { echo "Build the target first..."; exit 1; }
+
+nfdc:
+	nfd-start
+	sudo nfdc register ndn:/place udp://$(ip)
+	sudo nfdc set-strategy ndn:/place ndn:/locahost/nfd/strategy/broadcast
+
 clean:
 	rm -rf $(BUILD_DIR)
 
 rebuild: clean all
 
 help:
-	@echo "make         -------- make target by modify time"
-	@echo "make clean   -------- clean target"
-	@echo "make rebuild -------- rebuild the target"
+	@echo "make                     -------- make target by modify time"
+	@echo "make clean               -------- clean target"
+	@echo "make rebuild             -------- rebuild the target"
+	@echo "make run                 -------- run the target"
+	@echo "make nfdc ip=192.168.1.1 -------- start nfd and register car"

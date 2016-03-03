@@ -36,6 +36,7 @@ private:
 /* Method */
 public:
 		explicit Peek();
+		Peek(std::string carName);
 		~Peek();
 /* ndn method */
 public:

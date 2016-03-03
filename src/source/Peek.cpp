@@ -1,17 +1,31 @@
 #include "../include/Peek.h"
 
 Peek::Peek() 
-		: thisCarNumber("Car1")
-		, m_mustBeFresh(false)
-		, m_isPayloadOnlySet(false)
-		, m_isChildSelectorRightmost(false)
-		, m_isDataReceived(false)
-		, m_timeout(-1)
-		, m_ttl(-1)
-		, m_minSuffixComponents(-1)
-		, m_maxSuffixComponents(-1)
-		, m_interestLifetime(-1) {
+	: thisCarNumber("Car1")
+	, m_mustBeFresh(false)
+	, m_isPayloadOnlySet(false)
+	, m_isChildSelectorRightmost(false)
+	, m_isDataReceived(false)
+	, m_timeout(-1)
+	, m_ttl(-1)
+	, m_minSuffixComponents(-1)
+	, m_maxSuffixComponents(-1)
+	, m_interestLifetime(-1) {
 }
+
+Peek::Peek(std::string carName) 
+	: thisCarNumber(carName)
+	, m_mustBeFresh(false)
+	, m_isPayloadOnlySet(false)
+	, m_isChildSelectorRightmost(false)
+	, m_isDataReceived(false)
+	, m_timeout(-1)
+	, m_ttl(-1)
+	, m_minSuffixComponents(-1)
+	, m_maxSuffixComponents(-1)
+	, m_interestLifetime(-1) {
+}
+
 void Peek::usage() {
 	printf("\n Usage:\n [-f] [-r] [-m min] [-M max] [-l lifetime] [-p] [-w timeout] ndn:/name\n"
       "   Get one data item matching the name prefix and write it to stdout\n"

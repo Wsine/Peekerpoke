@@ -9,7 +9,7 @@ Car& Util::newCar(std::string s) {
 		delete car;
 		car = new Car(s);
 	}
-	return car;
+	return *car;
 }
 
 Car& Util::getCar() {

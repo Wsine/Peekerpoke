@@ -31,8 +31,9 @@ void Map::initDestination() {
 	destination = point(9, 4);
 }
 
-void Map::initCurrentPosition() {
-	currentPosition = point(0, 4);
+void Map::initCurrentAndNextPosition() {
+	currentPosition = point(5, 4);
+	nextPosition = currentPosition;
 }
 
 void Map::initCurrentDirection() {
@@ -42,7 +43,7 @@ void Map::initCurrentDirection() {
 void Map::initial() {
 	initMatrix();
 	initDestination();
-	initCurrentPosition();
+	initCurrentAndNextPosition();
 	initCurrentDirection();
 }
 
@@ -111,7 +112,7 @@ void Map::updateNextPosition() {
 		nextPosition = path[0];
 	} else {
 		printf("NO ROUTE!\n");
-		nextPosition = point(0, 0);
+		nextPosition = INF_POINT;
 	}
 }
 

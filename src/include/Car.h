@@ -19,6 +19,7 @@ private:
 	string m_name;
 	Map m_map;
 	Motor m_motor;
+	pthread_t pokeThread;
 /* Method */
 public:
 	Car();

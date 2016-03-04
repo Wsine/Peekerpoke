@@ -10,7 +10,14 @@ Car::Car(string name) {
 	forkThreadForPoke();
 }
 
-Car::~Car() {}
+Car::~Car() {
+	int cancelResult = pthread_cancel(pokeThread);
+	if (s == 0) {
+		printf("The Poke Thread was cancelled.\n");
+	} else {
+		printf("Cancel Poke Thread Failed...\n");
+	}
+}
 
 void Car::adjustDirection() {
 	if (m_map.compareCurrent2nextDirection('x') == 0) {
@@ -101,6 +108,11 @@ Motor& Car::getMotor() {
 }
 
 void* startPoke(void *ptr) {
+	int canCancel = pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
+	if (canCancel != 0) {
+		printf("This Poke Thread can not be cancelled.\n");
+	}
+
 	std::string carName((char*)ptr);
 	Poke poke(carName);
 	char *preFixName = "ndn:/place";
@@ -135,14 +147,12 @@ void Car::startPeek(std::string ptr) {
 }
 
 void Car::forkThreadForPoke() {
-	pthread_t thread;
 	int createThreadResult;
-	createThreadResult = pthread_create(&thread, NULL, startPoke, (void*)m_name.c_str());
+	createThreadResult = pthread_create(&pokeThread, NULL, startPoke, (void*)m_name.c_str());
 	if (createThreadResult) {
 		printf("Try Create Sub Thread Failed.\n");
 	} else {
 		printf("Sub Thread Started.\n");
-		
 	}
 }
 

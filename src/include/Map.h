@@ -13,17 +13,39 @@
 
 using namespace std;
 
+/**
+ * @def MAP_ROWS
+ * @brief the rows of the map
+ */
 #define MAP_ROWS 10
+/**
+ * @def MAP_COLUMNS
+ * @brief the columns of the map
+ */
 #define MAP_COLUMNS 10
+/**
+ * @def PATH_LENGTH
+ * @brief the max length of the road to nex position
+ */
 #define PATH_LENGTH 50
+/**
+ * @def INF_POINT
+ * @brief the point which means can not reach
+ */
 #define INF_POINT point(-1, -1)
 
-/*
- * define go_east go_west go_south go_north
+/**
+ * @brief define go_east go_west go_south go_north
  */
 const int oper_x[4] = {0, 0, 1, -1};
+/**
+ * @brief define go_east go_west go_south go_north
+ */
 const int oper_y[4] = {-1, 1, 0, 0};
 
+/**
+ * @brief enum of four direction
+ */
 enum direction {
 	d_east = 1,
 	d_west = 2,
@@ -33,18 +55,10 @@ enum direction {
 
 struct point {
 	int x, y, step;
-	point() {}
-	point(int _x, int _y, int _step = 0) {
-		x = _x;
-		y = _y;
-		step = _step;
-	}
-	bool operator== (const point& other) {
-		return (x == other.x && y == other.y);
-	}
-	bool operator!= (const point& other) {
-		return (x != other.x || y != other.y);
-	}
+	point();
+	point(int _x, int _y, int _step = 0);
+	bool operator== (const point& other);
+	bool operator!= (const point& other);
 	string toString();
 };
 

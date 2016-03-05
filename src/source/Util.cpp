@@ -1,6 +1,13 @@
 #include "Util.h"
 
 Car* Util::car = 0;
+
+/**
+ * @fn Util::newCar(std::string s)
+ * @brief always to construct a new car with its name
+ * @param s the car's name
+ * @return the reference of the new car
+ */
 Car& Util::newCar(std::string s) {
 	// Remerber: only called once
 	if (!car) {
@@ -12,6 +19,12 @@ Car& Util::newCar(std::string s) {
 	return *car;
 }
 
+/**
+ * @fn Util::getCar()
+ * @brief the only way to get access to the car
+ * @details If car pointer is NULL, new one
+ * @return the reference of the car
+ */
 Car& Util::getCar() {
 	if (!car) {
 		car = new Car();
@@ -19,6 +32,12 @@ Car& Util::getCar() {
 	return *car;
 }
 
+/**
+ * @fn Util::int2string(int i)
+ * @brief convert int to string
+ * @param i int type
+ * @return string result
+ */
 string Util::int2string(int i) {
 	stringstream ss;
 	string str;
@@ -27,8 +46,14 @@ string Util::int2string(int i) {
 	return str;
 }
 
+/**
+ * @fn Util::extractMapResult(std::string s)
+ * @brief Extract the map status message from a string
+ * @param s input string
+ * @return the map status
+ * @note input string must statistify "1/74/201623848.112/Car2"
+ */
 int Util::extractMapResult(std::string s) {
-	// s must satistify "1/74/201623848.112/Car2"
 	int result = 0;
 	stringstream ss;
 	ss << s;
@@ -36,8 +61,14 @@ int Util::extractMapResult(std::string s) {
 	return result;
 }
 
+/**
+ * @fn Util::extractMapLocation(std::string s)
+ * @brief Extract the map location message from a string
+ * @param s input string
+ * @return the map location
+ * @note input string must statistify "1/74/201623848.112/Car2"
+ */
 point Util::extractMapLocation(std::string s) {
-	// s must satistify "1/74/201623848.112/Car2"
 	point p;
 	int location;
 	char c;

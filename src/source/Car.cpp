@@ -6,6 +6,7 @@
 #include "Car.h"
 
 /**
+ * @fn Car::Car()
  * @brief Default constructor of class Car
  * @details Set the car name as "Car1" and fork a thread for poke
  */
@@ -15,7 +16,8 @@ Car::Car() {
 }
 
 /**
- * @brief string constructor of class Car
+ * @fn Car::Car(string name)
+ * @brief String constructor of class Car
  * @details Set the car name from param and fork a thread for poke
  * @param name A string of the car name
  */
@@ -24,6 +26,11 @@ Car::Car(string name) {
 	forkThreadForPoke();
 }
 
+/**
+ * @fn Car::~Car()
+ * @brief Default destructor of class Car
+ * @details Cancel the thread of poke
+ */
 Car::~Car() {
 	int cancelResult = pthread_cancel(pokeThread);
 	if (s == 0) {
@@ -33,6 +40,10 @@ Car::~Car() {
 	}
 }
 
+/**
+ * @fn Car::adjustDirection()
+ * @brief Adjust the car direction according to the next positon
+ */
 void Car::adjustDirection() {
 	if (m_map.compareCurrent2nextDirection('x') == 0) {
 		if (m_map.compareCurrent2nextDirection('y') == -1) {
@@ -113,14 +124,32 @@ void Car::adjustDirection() {
 	}
 }
 
+/**
+ * @fn Car::getMap()
+ * @brief getter function of m_map
+ * @return the same object of the map
+ */
 Map& Car::getMap() {
 	return m_map;
 }
 
+/**
+ * @fn Car::getMotor()
+ * @brief getter function of m_motor
+ * @return the same object of the motor
+ */
 Motor& Car::getMotor() {
 	return m_motor;
 }
 
+/**
+ * @fn startPoke(void *ptr)
+ * @brief New a poke class and start to do poke
+ * @details Set the thread cancelable, format the poke text, judge if data is sent
+ * @return NULL
+ * @note onCall by the function forkThreadForPoke()
+ * @note ptr is a pointer pointed to a c-string
+ */
 void* startPoke(void *ptr) {
 	int canCancel = pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
 	if (canCancel != 0) {
@@ -141,6 +170,12 @@ void* startPoke(void *ptr) {
 	return NULL;
 }
 
+/**
+ * @fn Car::startPeek(std::string ptr)
+ * @brief New a peek class and start to do peek
+ * @details Format the peek text, Set the params of peek, judeg if data is received
+ * @param ptr A string of what to be sent out
+ */
 void Car::startPeek(std::string ptr) {
 	const std::string ndnPrefix = "ndn:/place/"; 
 	Peek peek(m_name);
@@ -160,6 +195,10 @@ void Car::startPeek(std::string ptr) {
 	}
 }
 
+/**
+ * @fn Car::forkThreadForPoke()
+ * @brief Fork a sub thread for poke
+ */
 void Car::forkThreadForPoke() {
 	int createThreadResult;
 	createThreadResult = pthread_create(&pokeThread, NULL, startPoke, (void*)m_name.c_str());

@@ -20,7 +20,7 @@ CFLAGS = -Wall -g -std=c++0x
 LDFLAGS = -lm -lpthread -lboost_system $(shell pkg-config --cflags --libs libndn-cxx)
 INCLUDE = -I$(INCLUDE_DIR)
 
-.PHONY: clean rebuild help
+.PHONY: clean rebuild help run rebuild nfdc doc
 
 all: $(OBJS) $(BIN_DIR)
 	$(CC) -o $(BIN_DIR)/$(PROGRAM) $(OBJS) $(LDFLAGS)
@@ -51,7 +51,7 @@ doc:
 clean:
 	rm -rf $(BUILD_DIR)
 
-rebuild: clean all run rebuild nfdc doc
+rebuild: clean all
 
 help:
 	@echo "make                     -------- make target by modify time"

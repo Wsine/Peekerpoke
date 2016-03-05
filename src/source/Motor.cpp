@@ -1,5 +1,15 @@
+/**
+ * @file Motor.cpp
+ * @brief The implementation of class Motor
+ */
+
 #include "Motor.h"
 
+/**
+ * @fn Motor::Motor()
+ * @brief Default constructor of class Motor
+ * @details Open the port to NFC, call function initial()
+ */
 Motor::Motor() {
 	portname = "/dev/ttymxc3";
 	fd = open(portname, O_RDWR | O_NOCTTY | O_SYNC);
@@ -7,8 +17,19 @@ Motor::Motor() {
 	initial();
 }
 
+/**
+ * @fn Motor::~Motor()
+ */
 Motor::~Motor() {}
 
+/**
+ * @fn Motor::setInterfaceAttribs(int fd, int speed, int parity)
+ * @brief setter function for port to NFC
+ * @param fd port open return value
+ * @param speed communicate speed
+ * @param parity if parity set 0
+ * @return error code
+ */
 int Motor::setInterfaceAttribs(int fd, int speed, int parity) {
 	struct termios tty;
 	memset (&tty, 0, sizeof tty);
@@ -37,6 +58,13 @@ int Motor::setInterfaceAttribs(int fd, int speed, int parity) {
 	return 0;
 }
 
+/**
+ * @fn Motor::setBlocking(int fd, int should_block)
+ * @brief setter function for port to NFC
+ * @param fd port open return value
+ * @param should_block whether the post should be block
+ * @return error code
+ */
 void Motor::setBlocking(int fd, int should_block) {
 	struct termios tty;
 	memset (&tty, 0, sizeof tty);
@@ -50,6 +78,10 @@ void Motor::setBlocking(int fd, int should_block) {
 		printf ("error %d setting term attributes", errno);
 }
 
+/**
+ * @fn Motor::initial()
+ * @brief call by constructor
+ */
 void Motor::initial() {
 	if (fd < 0) {
 		printf("error %d opening %s: %s", errno, portname, strerror (errno));
@@ -60,11 +92,19 @@ void Motor::initial() {
 	work = true;
 }
 
+/**
+ * @fn Motor::turn180()
+ * @brief Control function for Motor
+ */
 void Motor::turn180() {
 	// TODO: to be implemented
 	printf("Turn 180\n");
 }
 
+/**
+ * @fn Motor::turnLeft()
+ * @brief Control function for Motor
+ */
 void Motor::turnLeft() {
 	if(isWork()) {
 		write(fd, "3", 1);
@@ -74,6 +114,10 @@ void Motor::turnLeft() {
 	}
 }
 
+/**
+ * @fn Motor::turnRight()
+ * @brief Control function for Motor
+ */
 void Motor::turnRight() {
 	if (isWork()) {	
 		write(fd, "4", 1);
@@ -83,6 +127,10 @@ void Motor::turnRight() {
 	}
 }
 
+/**
+ * @fn Motor::goStraight()
+ * @brief Control function for Motor
+ */
 void Motor::goStraight() {
 	if (isWork()) {
 		write(fd, "1", 1);
@@ -92,6 +140,10 @@ void Motor::goStraight() {
 	}
 }
 
+/**
+ * @fn Motor::stop()
+ * @brief Control function for Motor
+ */
 void Motor::stop() {
 	if (isWork()) {
 		write(fd, "2", 1);
@@ -101,6 +153,12 @@ void Motor::stop() {
 	}
 }
 
+/**
+ * @fn Motor::isWork()
+ * @brief Check if the motor can work
+ * @return true  - can work
+ * @return false - otherwise
+ */
 bool Motor::isWork() {
 	return work;
 }

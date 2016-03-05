@@ -1,3 +1,8 @@
+/**
+ * @file Util.h
+ * @brief The declaration of class Util
+ */
+
 #ifndef UTIL_H_
 #define UTIL_H_
 
@@ -6,6 +11,9 @@
 #include "Map.h"
 #include "Car.h"
 
+/**
+ * Fix in Linux; Stupid!!! Ignore me!
+ */
 class Car; // Fix in Linux; Stupid!!!
 
 class Util {

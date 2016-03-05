@@ -1,3 +1,8 @@
+/**
+ * @file Car.h
+ * @brief The declaration of class Car
+ */
+
 #ifndef CAR_H_
 #define CAR_H_
 
@@ -11,8 +16,6 @@
 #include "Poke.h"
 #include "Peek.h"
 using namespace std;
-
-//class Map; // Fix in Linux; Stupid!!!
 
 class Car {
 private:

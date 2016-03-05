@@ -1,10 +1,24 @@
+/**
+ * @file Car.cpp
+ * @brief The implementation of class Car
+ */
+
 #include "Car.h"
 
+/**
+ * @brief Default constructor of class Car
+ * @details Set the car name as "Car1" and fork a thread for poke
+ */
 Car::Car() {
 	m_name = "Car1";
 	forkThreadForPoke();
 }
 
+/**
+ * @brief string constructor of class Car
+ * @details Set the car name from param and fork a thread for poke
+ * @param name A string of the car name
+ */
 Car::Car(string name) {
 	m_name = name;
 	forkThreadForPoke();

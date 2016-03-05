@@ -45,10 +45,13 @@ nfdc:
 	sudo nfdc register ndn:/place udp://$(ip)
 	sudo nfdc set-strategy ndn:/place ndn:/locahost/nfd/strategy/broadcast
 
+doc:
+	doxygen
+
 clean:
 	rm -rf $(BUILD_DIR)
 
-rebuild: clean all
+rebuild: clean all run rebuild nfdc doc
 
 help:
 	@echo "make                     -------- make target by modify time"

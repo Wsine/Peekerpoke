@@ -15,7 +15,7 @@ Car::Car() {
 }
 
 /**
- * @brief string constructor of class Car
+ * @brief String constructor of class Car
  * @details Set the car name from param and fork a thread for poke
  * @param name A string of the car name
  */
@@ -24,6 +24,10 @@ Car::Car(string name) {
 	forkThreadForPoke();
 }
 
+/**
+ * @brief Default destructor of class Car
+ * @details Cancel the thread of poke
+ */
 Car::~Car() {
 	int cancelResult = pthread_cancel(pokeThread);
 	if (s == 0) {
@@ -33,6 +37,9 @@ Car::~Car() {
 	}
 }
 
+/**
+ * @brief Adjust the car direction according to the next positon
+ */
 void Car::adjustDirection() {
 	if (m_map.compareCurrent2nextDirection('x') == 0) {
 		if (m_map.compareCurrent2nextDirection('y') == -1) {
@@ -113,14 +120,29 @@ void Car::adjustDirection() {
 	}
 }
 
+/**
+ * @brief getter function of m_map
+ * @return m_map the same object of the map
+ */
 Map& Car::getMap() {
 	return m_map;
 }
 
+/**
+ * @brief getter function of m_motor
+ * @return m_motor the same object of the motor
+ */
 Motor& Car::getMotor() {
 	return m_motor;
 }
 
+/**
+ * @brief New a poke class and start to do poke
+ * @details Set the thread cancelable, format the poke text, judge if data is sent
+ * @return NULL
+ * @note onCall by the function forkThreadForPoke()
+ * @note ptr is a pointer pointed to a c-string
+ */
 void* startPoke(void *ptr) {
 	int canCancel = pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
 	if (canCancel != 0) {
@@ -141,6 +163,11 @@ void* startPoke(void *ptr) {
 	return NULL;
 }
 
+/**
+ * @brief New a peek class and start to do peek
+ * @details Format the peek text, Set the params of peek, judeg if data is received
+ * @param ptr A string of what to be sent out
+ */
 void Car::startPeek(std::string ptr) {
 	const std::string ndnPrefix = "ndn:/place/"; 
 	Peek peek(m_name);
@@ -160,6 +187,9 @@ void Car::startPeek(std::string ptr) {
 	}
 }
 
+/**
+ * @brief Fork a sub thread for poke
+ */
 void Car::forkThreadForPoke() {
 	int createThreadResult;
 	createThreadResult = pthread_create(&pokeThread, NULL, startPoke, (void*)m_name.c_str());

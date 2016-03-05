@@ -6,6 +6,7 @@
 #include "Car.h"
 
 /**
+ * @fn Car::Car()
  * @brief Default constructor of class Car
  * @details Set the car name as "Car1" and fork a thread for poke
  */
@@ -15,6 +16,7 @@ Car::Car() {
 }
 
 /**
+ * @fn Car::Car(string name)
  * @brief String constructor of class Car
  * @details Set the car name from param and fork a thread for poke
  * @param name A string of the car name
@@ -25,6 +27,7 @@ Car::Car(string name) {
 }
 
 /**
+ * @fn Car::~Car()
  * @brief Default destructor of class Car
  * @details Cancel the thread of poke
  */
@@ -38,6 +41,7 @@ Car::~Car() {
 }
 
 /**
+ * @fn Car::adjustDirection()
  * @brief Adjust the car direction according to the next positon
  */
 void Car::adjustDirection() {
@@ -121,22 +125,25 @@ void Car::adjustDirection() {
 }
 
 /**
+ * @fn Car::getMap()
  * @brief getter function of m_map
- * @return m_map the same object of the map
+ * @return the same object of the map
  */
 Map& Car::getMap() {
 	return m_map;
 }
 
 /**
+ * @fn Car::getMotor()
  * @brief getter function of m_motor
- * @return m_motor the same object of the motor
+ * @return the same object of the motor
  */
 Motor& Car::getMotor() {
 	return m_motor;
 }
 
 /**
+ * @fn startPoke(void *ptr)
  * @brief New a poke class and start to do poke
  * @details Set the thread cancelable, format the poke text, judge if data is sent
  * @return NULL
@@ -164,6 +171,7 @@ void* startPoke(void *ptr) {
 }
 
 /**
+ * @fn Car::startPeek(std::string ptr)
  * @brief New a peek class and start to do peek
  * @details Format the peek text, Set the params of peek, judeg if data is received
  * @param ptr A string of what to be sent out
@@ -188,6 +196,7 @@ void Car::startPeek(std::string ptr) {
 }
 
 /**
+ * @fn Car::forkThreadForPoke()
  * @brief Fork a sub thread for poke
  */
 void Car::forkThreadForPoke() {

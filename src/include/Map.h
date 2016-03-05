@@ -1,18 +1,15 @@
+/**
+ * @file Map.h
+ * @brief The declaration of class Map
+ */
+
 #ifndef MAP_H_
 #define MAP_H_
 
 #include <iostream>
-#include <termios.h>
-#include <fcntl.h>
 #include <string.h>
 #include <stdio.h>
-#include <errno.h>
-#include <sys/ipc.h>
-#include <sys/shm.h>
-#include <sys/types.h>
-#include <unistd.h>
 #include <stdlib.h>
-
 
 using namespace std;
 

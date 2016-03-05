@@ -1,3 +1,8 @@
+/**
+ * @file Map.cpp
+ * @brief The implementation of class Map
+ */
+
 #include "Map.h"
 #include "Util.h"
 

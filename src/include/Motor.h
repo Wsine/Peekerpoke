@@ -4,6 +4,11 @@
 #include <iostream>
 #include <termios.h>
 #include <fcntl.h>
+/**
+ * @file Util.h
+ * @brief The declaration of class Util
+ */
+
 #include <string.h>
 #include <stdio.h>
 #include <errno.h>

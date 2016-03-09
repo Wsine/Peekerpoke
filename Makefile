@@ -41,7 +41,7 @@ run:
 	sudo .$(BIN_DIR)/$(PROGRAM) || { echo "Build the target first..."; exit 1; }
 
 nfdc:
-	nfd-start
+	nfd-start &
 	sudo nfdc register ndn:/place udp://$(ip)
 	sudo nfdc set-strategy ndn:/place ndn:/locahost/nfd/strategy/broadcast
 

@@ -170,7 +170,9 @@ void Peek::run() {
 			m_ttl--;
 			if (m_ttl != 0) {
 				printf("Current currentFilterCarNumber =  %s\n", currentFilterCarNumber.c_str());
-				m_face.expressInterest(createInterestPacket(currentFilterCarNumber), bind(&Peek::onData, this, _1, _2), bind(&Peek::onTimeout, this, _1));
+				std::string getTime = time::toIsoString(time::system_clock::now());
+				std::string timeStamp = getTime.substr(16, 21);
+				m_face.expressInterest(createInterestPacket(currentFilterCarNumber + timeStamp), bind(&Peek::onData, this, _1, _2), bind(&Peek::onTimeout, this, _1));
 				m_face.processEvents();
 			}
 			else  {

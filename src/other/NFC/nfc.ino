@@ -38,29 +38,6 @@ unsigned char receive_ACK[25]; //Command receiving buffer
 #define print1Byte(args) Serial1.print(args,BYTE)
 #define print1lnByte(args)  Serial1.println(args,BYTE)
 #endif
- 
-void setup() {
-	Serial.begin(9600);   // open serial with PC
-	Serial1.begin(115200);    //open serial1 with device
-	wake_card();
-	delay(100);
-	read_ACK(15);
-	delay(100);
-	display(15);
-}
- 
-void loop() {
-	send_tag(); 
-	read_ACK(25);
-	delay(100);
-	if (!cmp_id()) {
-		if (test_ACK()) {
-			display (25);
-			delay (100);
-		}
-	}
-	copy_id();
-}
 
 void copy_id (void)  { //save old id
 	int ai, oi;
@@ -95,6 +72,13 @@ void send_id(void) { //send id to PC
 		Serial.print(" ");
 	}
 	Serial.println();
+}
+
+void send_id2(void) { //send id to PC
+	int i;
+	for (i = 19; i <= 23; i++) {
+		Serial.write(receive_ACK[i]);
+	}
 }
 
 void UART1_Send_Byte(unsigned char command_data) { //send byte to device
@@ -140,4 +124,29 @@ void display(unsigned char tem) { //send receive_ACK[] to PC
 	for(i = 0; i < tem; i++) //send command
 		UART_Send_Byte(receive_ACK[i]);
 	Serial.println();
+}
+
+void setup() {
+	Serial.begin(115200);   // open serial with PC
+	Serial1.begin(115200);    //open serial1 with device
+	wake_card();
+	delay(100);
+	read_ACK(15);
+	delay(100);
+	// display(15);
+}
+ 
+void loop() {
+	send_tag(); 
+	read_ACK(25);
+	delay(100);
+	if (!cmp_id()) {
+		if (test_ACK()) {
+			// display (25);
+			// send_id();
+			send_id2();
+			delay (100);
+		}
+	}
+	copy_id();
 }

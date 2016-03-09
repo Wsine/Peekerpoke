@@ -33,7 +33,7 @@ Car::Car(string name) {
  */
 Car::~Car() {
 	int cancelResult = pthread_cancel(pokeThread);
-	if (s == 0) {
+	if (cancelResult == 0) {
 		printf("The Poke Thread was cancelled.\n");
 	} else {
 		printf("Cancel Poke Thread Failed...\n");

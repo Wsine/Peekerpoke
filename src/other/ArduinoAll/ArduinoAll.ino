@@ -41,6 +41,13 @@ unsigned char receive_ACK[25]; // Command receiving buffer
 
 /******** Custommed Function ********/
 
+void goStop(){
+    digitalWrite(MoterRightDir1, LOW);
+    digitalWrite(MoterRightDir2, LOW);
+    digitalWrite(MoterLeftDir1, LOW);
+    digitalWrite(MoterLeftDir2, LOW);
+}
+
 void goStraight30()  {
     digitalWrite(MoterRightDir1, HIGH);
     digitalWrite(MoterRightDir2, HIGH);
@@ -64,13 +71,6 @@ void goStraight(){
 	digitalWrite(MoterRightDir2, HIGH);
 	digitalWrite(MoterLeftDir1, HIGH);
 	digitalWrite(MoterLeftDir2, HIGH);
-}
-
-void goStop(){
-	digitalWrite(MoterRightDir1, LOW);
-	digitalWrite(MoterRightDir2, LOW);
-	digitalWrite(MoterLeftDir1, LOW);
-	digitalWrite(MoterLeftDir2, LOW);
 }
 
 void goLeft(){
@@ -169,23 +169,23 @@ void serialEvent() {
             motorStatus = 0;
             goStraight(); 
         }
-        else if  (a == '1') {
+        else if (a == '1') {
             motorStatus = 1;
             goStraight50(); 
         }
-        else if  (a == '2') {
+        else if (a == '2') {
             motorStatus = 2;
             goStop(); 
         }
-        else if  (a == '3') {
+        else if (a == '3') {
             motorStatus = 3;
             goLeft(); 
         }
-        else if  (a == '4') {
+        else if (a == '4') {
             motorStatus = 4;
             goRight(); 
         }
-        else if  (a == '5') {
+        else if (a == '5') {
             motorStatus = 5;
             goStraight30(); 
         }

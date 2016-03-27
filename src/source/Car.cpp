@@ -13,6 +13,7 @@
 Car::Car() {
 	m_name = "Car1";
 	forkThreadForPoke();
+	forkThreadForLocation();
 }
 
 /**
@@ -24,6 +25,7 @@ Car::Car() {
 Car::Car(string name) {
 	m_name = name;
 	forkThreadForPoke();
+	forkThreadForLocation();
 }
 
 /**
@@ -33,6 +35,13 @@ Car::Car(string name) {
  */
 Car::~Car() {
 	int cancelResult = pthread_cancel(pokeThread);
+	if (cancelResult == 0) {
+		printf("The Poke Thread was cancelled.\n");
+	} else {
+		printf("Cancel Poke Thread Failed...\n");
+	}
+
+	cancelResult = pthread_cancel(locationThread);
 	if (cancelResult == 0) {
 		printf("The Poke Thread was cancelled.\n");
 	} else {
@@ -203,9 +212,38 @@ void Car::forkThreadForPoke() {
 	int createThreadResult;
 	createThreadResult = pthread_create(&pokeThread, NULL, startPoke, (void*)m_name.c_str());
 	if (createThreadResult) {
-		printf("Try Create Sub Thread Failed.\n");
+		printf("Try Create Sub Thread startPoke Failed.\n");
 	} else {
-		printf("Sub Thread Started.\n");
+		printf("Sub Thread startPoke Started.\n");
 	}
 }
 
+/**
+ * @fn startLocation(void* ptr)
+ * @brief New a Location Class and start to check location
+ * @param NULL
+ */
+void* startLocation(void *ptr) {
+	int canCancel = pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
+	if (canCancel != 0) {
+		printf("This Poke Thread can not be cancelled.\n");
+	}
+
+	Location location;
+	location.doLoop();
+	return NULL;
+}
+
+/**
+ * @fn Car::forkThreadForLocation()
+ * @brief Fork a thread for Location
+ */
+void Car::forkThreadForLocation() {
+	int createThreadResult;
+	createThreadResult = pthread_create(&locationThread, NULL, startLocation, NULL);
+	if (createThreadResult) {
+		printf("Try Create Sub Thread startLocation Failed.\n");
+	} else {
+		printf("Sub Thread startLocation Started.\n");
+	}
+}

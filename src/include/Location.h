@@ -29,11 +29,11 @@ public:
 	Location();
 	~Location();
 	bool isWork();
+	void doLoop();
 private:
 	int setInterfaceAttribs(int fd, int speed, int parity);
 	void setBlocking(int fd, int should_block);
 	void initial();
-	void doLoop();
 	string buf2str(char* c);
 	void searchMap(const string& s);
 	void insertMap();

@@ -105,7 +105,7 @@ void Location::doLoop() {
 	while (true) {
 		n = read(fd, buf, sizeof(buf));
 		if (n > 0) {
-			searchMap(buf2str(buf));
+			searchMap(buf2str(&buf[0]));
 			while(read(fd, buf, sizeof(buf)) > 0) {
 				;
 			}
@@ -121,7 +121,7 @@ void Location::doLoop() {
  */
 string Location::buf2str(char* c) {
 	char buf[50];
-	sprintf(buf, "%x %x %x %x %x", c[0], c[1], c[2], c[3], c[4]);
+	sprintf(buf, "%x %x %x", c[0], c[1], c[2]);
 	return string(buf);
 }
 
@@ -147,5 +147,5 @@ void Location::searchMap(const string& s) {
 void Location::insertMap() {
 	m_map.clear();
 	// Sample, TO DO: insert more
-	m_map.insert(pair<string, point>("21 21 21 21 21", point(7, 4)));
+	m_map.insert(pair<string, point>("21 21 21", point(7, 4)));
 }

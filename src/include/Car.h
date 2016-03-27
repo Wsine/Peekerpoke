@@ -15,6 +15,7 @@
 #include "Motor.h"
 #include "Poke.h"
 #include "Peek.h"
+#include "Location.h"
 
 using namespace std;
 
@@ -24,6 +25,7 @@ private:
 	Map m_map;
 	Motor m_motor;
 	pthread_t pokeThread;
+	pthread_t locationThread;
 /* Method */
 public:
 	Car();
@@ -35,6 +37,8 @@ public:
 	friend void* startPoke(void *ptr);
 	void startPeek(std::string ptr);
 	void forkThreadForPoke();
+	friend void* startLocation(void *ptr);
+	void forkThreadForLocation();
 };
 
 #endif

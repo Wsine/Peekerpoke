@@ -1,24 +1,24 @@
 #ifndef MOTOR_H_
 #define MOTOR_H_
 
-#include <iostream>
-#include <termios.h>
-#include <fcntl.h>
 /**
- * @file Util.h
- * @brief The declaration of class Util
+ * @file Motor.h
+ * @brief The declaration of class Motor
  */
 
+#include <iostream>
 #include <string.h>
 #include <stdio.h>
-#include <errno.h>
 #include <stdlib.h>
 using namespace std;
 
+#define MoterRightDir1 "gpio123"
+#define MoterRightDir2 "gpio125"
+#define MoterLeftDir1 "gpio127"
+#define MoterLeftDir2 "gpio134"
+
 class Motor {
 private:
-	char *portname;
-	int fd;
 	bool work;
 /* Method */
 public:
@@ -31,9 +31,8 @@ public:
 	void goStraight();
 	void stop();
 private:
-	int setInterfaceAttribs(int fd, int speed, int parity);
-	void setBlocking(int fd, int should_block);
 	void initial();
+	bool callSystem(const string& s);
 };
 
 #endif

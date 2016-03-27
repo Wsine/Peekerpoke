@@ -8,11 +8,9 @@
 /**
  * @fn Motor::Motor()
  * @brief Default constructor of class Motor
- * @details Open the port to NFC, call function initial()
+ * @details Call function initial()
  */
 Motor::Motor() {
-	portname = "/dev/ttymxc3";
-	fd = open(portname, O_RDWR | O_NOCTTY | O_SYNC);
 	work = false;
 	initial();
 }
@@ -23,73 +21,17 @@ Motor::Motor() {
 Motor::~Motor() {}
 
 /**
- * @fn Motor::setInterfaceAttribs(int fd, int speed, int parity)
- * @brief setter function for port to NFC
- * @param fd port open return value
- * @param speed communicate speed
- * @param parity if parity set 0
- * @return error code
- */
-int Motor::setInterfaceAttribs(int fd, int speed, int parity) {
-	struct termios tty;
-	memset (&tty, 0, sizeof tty);
-	if (tcgetattr (fd, &tty) != 0){
-		printf ("error from tcgetattr", errno);
-		return -1;
-	}
-	cfsetospeed (&tty, speed);
-	cfsetispeed (&tty, speed);
-	tty.c_cflag = (tty.c_cflag & ~CSIZE) | CS8;
-	tty.c_iflag &= ~IGNBRK;
-	tty.c_lflag = 0;
-	tty.c_oflag = 0;
-	tty.c_cc[VMIN]  = 0;
-	tty.c_cc[VTIME] = 5;
-	tty.c_iflag &= ~(IXON | IXOFF | IXANY);
-	tty.c_cflag |= (CLOCAL | CREAD);
-	tty.c_cflag &= ~(PARENB | PARODD);
-	tty.c_cflag |= parity;
-	tty.c_cflag &= ~CSTOPB;
-	tty.c_cflag &= ~CRTSCTS;
-	if (tcsetattr (fd, TCSANOW, &tty) != 0){
-		printf ("error %d from tcsetattr", errno);
-		return -1;
-	}
-	return 0;
-}
-
-/**
- * @fn Motor::setBlocking(int fd, int should_block)
- * @brief setter function for port to NFC
- * @param fd port open return value
- * @param should_block whether the post should be block
- * @return error code
- */
-void Motor::setBlocking(int fd, int should_block) {
-	struct termios tty;
-	memset (&tty, 0, sizeof tty);
-	if (tcgetattr (fd, &tty) != 0){
-		printf ("error %d from tggetattr", errno);
-		return;
-	}
-	tty.c_cc[VMIN]  = should_block ? 1 : 0;
-	tty.c_cc[VTIME] = 5;
-	if (tcsetattr (fd, TCSANOW, &tty) != 0)
-		printf ("error %d setting term attributes", errno);
-}
-
-/**
  * @fn Motor::initial()
  * @brief call by constructor
  */
 void Motor::initial() {
-	if (fd < 0) {
-		printf("error %d opening %s: %s", errno, portname, strerror (errno));
-		return;
+	if (callSystem("echo out > /sys/class/gpio/"MoterRightDir1"/direction") 
+		&& callSystem("echo out > /sys/class/gpio/"MoterRightDir2"/direction")
+		&& callSystem("echo out > /sys/class/gpio/"MoterLeftDir1"/direction")
+		&& callSystem("echo out > /sys/class/gpio/"MoterLeftDir2"/direction")) {
+		work = true;
+		stop();
 	}
-	setInterfaceAttribs (fd, B115200, 0);
-	setBlocking (fd, 0);
-	work = true;
 }
 
 /**
@@ -107,8 +49,11 @@ void Motor::turn180() {
  */
 void Motor::turnLeft() {
 	if(isWork()) {
-		write(fd, "3", 1);
-		printf("Turn Left\n");		
+		callSystem("echo 0 > /sys/class/gpio/"MoterRightDir1"/value");
+		callSystem("echo 1 > /sys/class/gpio/"MoterRightDir2"/value");
+		callSystem("echo 1 > /sys/class/gpio/"MoterLeftDir1"/value");
+		callSystem("echo 0 > /sys/class/gpio/"MoterLeftDir2"/value");
+		printf("Turn Left!\n");
 	} else {
 		printf("Motor is not working...\n");
 	}
@@ -120,8 +65,11 @@ void Motor::turnLeft() {
  */
 void Motor::turnRight() {
 	if (isWork()) {	
-		write(fd, "4", 1);
-		printf("Turn Right\n");
+		callSystem("echo 1 > /sys/class/gpio/"MoterRightDir1"/value");
+		callSystem("echo 0 > /sys/class/gpio/"MoterRightDir2"/value");
+		callSystem("echo 0 > /sys/class/gpio/"MoterLeftDir1"/value");
+		callSystem("echo 1 > /sys/class/gpio/"MoterLeftDir2"/value");
+		printf("Turn Right!\n");
 	} else {
 		printf("Motor is not working...\n");
 	}
@@ -133,7 +81,10 @@ void Motor::turnRight() {
  */
 void Motor::goStraight() {
 	if (isWork()) {
-		write(fd, "1", 1);
+		callSystem("echo 1 > /sys/class/gpio/"MoterRightDir1"/value");
+		callSystem("echo 1 > /sys/class/gpio/"MoterRightDir2"/value");
+		callSystem("echo 1 > /sys/class/gpio/"MoterLeftDir1"/value");
+		callSystem("echo 1 > /sys/class/gpio/"MoterLeftDir2"/value");
 		printf("Go Straight!\n");
 	} else {
 		printf("Motor is not working...\n");
@@ -146,7 +97,10 @@ void Motor::goStraight() {
  */
 void Motor::stop() {
 	if (isWork()) {
-		write(fd, "2", 1);
+		callSystem("echo 0 > /sys/class/gpio/"MoterRightDir1"/value");
+		callSystem("echo 0 > /sys/class/gpio/"MoterRightDir2"/value");
+		callSystem("echo 0 > /sys/class/gpio/"MoterLeftDir1"/value");
+		callSystem("echo 0 > /sys/class/gpio/"MoterLeftDir2"/value");
 		printf("Stop Successful\n");
 	} else {
 		printf("Motor is not working...\n");
@@ -161,4 +115,30 @@ void Motor::stop() {
  */
 bool Motor::isWork() {
 	return work;
+}
+
+/**
+ * @fn Motor::callSystem()
+ * @brief Exec system command and return result
+ * @return true  - successfully
+ * @return false - otherwise
+ */
+bool Motor::callSystem(const string& s) {
+	int status = system(s.c_str());
+	if (status == -1) {
+		printf("System error\n");
+	} else {
+		int exitStatus = WIFEXITED(status);
+		if (exitStatus) {
+			int exitCode = WEXITSTATUS(status);
+			if (exitCode == 0) {
+				return true;
+			} else {
+				printf("run command fail and exit code is %d\n", exitCode);
+			}
+		} else {
+			printf("exit status = %d\n", exitStatus);
+		}
+	}
+	return false;
 }

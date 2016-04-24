@@ -98,18 +98,23 @@ void Location::initial() {
  * @brief check if reach a new place, do all the time
  */
 void Location::doLoop() {
-	char buf[256];
+	char buf[256], id[5];
 	memset(buf, '\0', sizeof(buf));
 
-	int n, i;
+	int n, i, cnt;
 	while (true) {
-		n = read(fd, buf, sizeof(buf));
-		if (n > 0) {
-			searchMap(buf2str(&buf[0]));
-			while(read(fd, buf, sizeof(buf)) > 0) {
-				;
+		cnt = 0;
+		while (cnt < 5) {
+			n = read(fd, buf, sizeof(buf));
+			if (n > 0) {
+				 for (i = 0; i < n; i++) {
+				 	id[cnt++] = buf[i];
+				 }
 			}
+			sleep(0.1);
 		}
+		searchMap(buf2str(&id[0]));
+		sleep(1);
 	}
 }
 
@@ -121,7 +126,7 @@ void Location::doLoop() {
  */
 string Location::buf2str(char* c) {
 	char buf[50];
-	sprintf(buf, "%x %x %x", c[0], c[1], c[2]);
+	sprintf(buf, "%x %x %x %x %x", c[0], c[1], c[2], c[3], c[4]);
 	return string(buf);
 }
 
@@ -147,5 +152,5 @@ void Location::searchMap(const string& s) {
 void Location::insertMap() {
 	m_map.clear();
 	// Sample, TO DO: insert more
-	m_map.insert(pair<string, point>("21 21 21", point(7, 4)));
+	m_map.insert(pair<string, point>("21 21 21 21 21", point(7, 4)));
 }

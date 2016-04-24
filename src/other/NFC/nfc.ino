@@ -149,4 +149,5 @@ void loop() {
 		}
 	}
 	copy_id();
+	delay(100);
 }

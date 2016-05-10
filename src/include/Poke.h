@@ -1,3 +1,8 @@
+/**
+ * @file Poke.h
+ * @brief The declaration of class Poke
+ */
+
 #ifndef POKE_H_
 #define POKE_H_
 
@@ -44,7 +49,7 @@ public:
 	void setFreshnessPeriod(int freshnessPeriod);
 	void setTimeout(int timeout);
 	void setPrefixName(char* prefixName);
-	time::milliseconds getDefaultTimeout();
+	//time::milliseconds getDefaultTimeout();
 	bool isDataSent() const;
 	void onTimeout(const Interest& interest);
 	void onData(const Interest& interest, Data& data);

@@ -1,3 +1,8 @@
+/**
+ * @file Peek.h
+ * @brief The declaration of class Peek
+ */
+
 #ifndef PEEK_H_
 #define PEEK_H_
 

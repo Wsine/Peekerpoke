@@ -10,7 +10,15 @@
 
 注意：使用UTF-8编码方式打开文件
 
-## How to use
+## 依赖平台
+
+[UDOO QUAD](http://www.udoo.org/)开发板
+
+小车平台Demo
+
+NFD环境配置
+
+## 如何使用
 
 使用`make`命令一键编译整个工程
 

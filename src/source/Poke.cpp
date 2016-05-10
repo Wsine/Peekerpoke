@@ -126,17 +126,6 @@ void Poke::setPrefixName(char* prefixName) {
 }
 
 /**
- * @fn Poke::getDefaultTimeout()
- * @brief ndn method
- * @brief set interest default waitting time if necessary.
- * @brief but we will not use it here because this kind of interest in producer needn't be answered.
- * @param timeout, milliseconds 
- */
-//time::milliseconds Poke::getDefaultTimeout() {
-//	return time::seconds(10);
-//}
-
-/**
  * @fn Poke::isDataSent()
  * @brief tell other module whether send a packet successfully.
  * @return true  - data send successfully.

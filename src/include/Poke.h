@@ -49,7 +49,6 @@ public:
 	void setFreshnessPeriod(int freshnessPeriod);
 	void setTimeout(int timeout);
 	void setPrefixName(char* prefixName);
-	//time::milliseconds getDefaultTimeout();
 	bool isDataSent() const;
 	void onTimeout(const Interest& interest);
 	void onData(const Interest& interest, Data& data);

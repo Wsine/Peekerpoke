@@ -59,3 +59,4 @@ help:
 	@echo "make rebuild             -------- rebuild the target"
 	@echo "make run                 -------- run the target"
 	@echo "make nfdc ip=192.168.1.1 -------- start nfd and register car"
+	@echo "make doc                 -------- use doxygen to generate an API document"

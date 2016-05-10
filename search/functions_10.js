@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['_7ecar',['~Car',['../class_car.html#a5933bb06e96b159fe339a128abda888a',1,'Car']]],
-  ['_7emap',['~Map',['../class_map.html#aa403fbe09394ccf39747588f5168e3b2',1,'Map']]],
-  ['_7emotor',['~Motor',['../class_motor.html#a2e57c7b2681efea1d3b7f253ee88ecd4',1,'Motor']]],
-  ['_7epeek',['~Peek',['../class_peek.html#a664725c296644c71fa3f387c3a48c4fa',1,'Peek']]]
+  ['updatenextposition',['updateNextPosition',['../class_map.html#a13d623d9ec7a3b730664c2944a575665',1,'Map']]],
+  ['usage',['usage',['../class_peek.html#acfd95e86136e87e72f58f920a8a1fec3',1,'Peek::usage()'],['../class_poke.html#a652cba7dc5be234d16f2f3aa6f9b6775',1,'Poke::usage()']]],
+  ['usepeek',['usepeek',['../class_poke.html#a5b51339aa8fddde2cfd56f08732862af',1,'Poke']]]
 ];

@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['updatenextposition',['updateNextPosition',['../class_map.html#a13d623d9ec7a3b730664c2944a575665',1,'Map']]],
-  ['usage',['usage',['../class_peek.html#acfd95e86136e87e72f58f920a8a1fec3',1,'Peek::usage()'],['../class_poke.html#a652cba7dc5be234d16f2f3aa6f9b6775',1,'Poke::usage()']]],
-  ['usepeek',['usepeek',['../class_poke.html#a5b51339aa8fddde2cfd56f08732862af',1,'Poke']]],
-  ['util',['Util',['../class_util.html',1,'']]],
-  ['util_2ecpp',['Util.cpp',['../_util_8cpp.html',1,'']]],
-  ['util_2eh',['Util.h',['../_util_8h.html',1,'']]]
+  ['testnfc_2ecpp',['testNFC.cpp',['../test_n_f_c_8cpp.html',1,'']]],
+  ['thiscarnumber',['thisCarNumber',['../class_peek.html#a281f868a8c62003fbb698050b0fcbdd7',1,'Peek']]],
+  ['tostring',['toString',['../structpoint.html#aa211deda3afc3159564ecff24753755e',1,'point']]],
+  ['turn180',['turn180',['../class_motor.html#aab9312be849d11ffe73ea14371fd0cc4',1,'Motor']]],
+  ['turnleft',['turnLeft',['../class_motor.html#a54c135e1e152b8cd0446a793128a16bb',1,'Motor']]],
+  ['turnright',['turnRight',['../class_motor.html#a8032703913737d0e873485275a78e8e6',1,'Motor']]]
 ];

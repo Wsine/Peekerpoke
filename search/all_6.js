@@ -6,7 +6,6 @@ var searchData=
   ['getcurrentposition',['getCurrentPosition',['../class_map.html#a422ca7b011e2bd6a753c30a8853e43b9',1,'Map']]],
   ['getdatastring',['getDataString',['../class_peek.html#a699e76a240e3e4b3b4783307f974500e',1,'Peek']]],
   ['getdefaultinterestlifetime',['getDefaultInterestLifetime',['../class_peek.html#a5d63cb3aa6ef5fa98fb93e0af271c96e',1,'Peek']]],
-  ['getdefaulttimeout',['getDefaultTimeout',['../class_poke.html#a3ff3e7e33ade3f47cb573873c09b1804',1,'Poke']]],
   ['getinformationfrommemory',['GetInformationFromMemory',['../class_poke.html#a8522495aeff83395ac6bf2d9651acd0b',1,'Poke']]],
   ['getmap',['getMap',['../class_car.html#a8aba4a20546a7dfa1c2a4e7c8c6ccbbd',1,'Car']]],
   ['getmapatposition',['getMapAtPosition',['../class_map.html#a13fc7edc3b8d835db6dad92f612de36b',1,'Map']]],

@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['peek',['Peek',['../class_peek.html',1,'']]],
-  ['point',['point',['../structpoint.html',1,'']]],
-  ['poke',['Poke',['../class_poke.html',1,'']]]
+  ['map',['Map',['../class_map.html',1,'']]],
+  ['motor',['Motor',['../class_motor.html',1,'']]]
 ];

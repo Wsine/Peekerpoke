@@ -6,7 +6,6 @@ var class_poke =
     [ "createDataPacket", "class_poke.html#a2172d68e795609f6f9b164f3d0746b08", null ],
     [ "createInterestPacket", "class_poke.html#a2b8f6429eb6b7f310371590e64e06ee9", null ],
     [ "GetAimPosition", "class_poke.html#ac6d6c87f48367d9d254bc0bf5adae5a4", null ],
-    [ "getDefaultTimeout", "class_poke.html#a3ff3e7e33ade3f47cb573873c09b1804", null ],
     [ "GetInformationFromMemory", "class_poke.html#a8522495aeff83395ac6bf2d9651acd0b", null ],
     [ "GetTypeOfInterest", "class_poke.html#a9c77c873e87e04aa84792626c03cf8a7", null ],
     [ "isDataSent", "class_poke.html#a16bdb84a38348aef0317c27fdb5df94b", null ],

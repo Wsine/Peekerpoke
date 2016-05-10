@@ -94,6 +94,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="#index_g"><span>g</span></a></li>
       <li><a href="#index_h"><span>h</span></a></li>
       <li><a href="#index_i"><span>i</span></a></li>
+      <li><a href="#index_l"><span>l</span></a></li>
       <li><a href="#index_m"><span>m</span></a></li>
       <li><a href="#index_n"><span>n</span></a></li>
       <li><a href="#index_o"><span>o</span></a></li>
@@ -155,10 +156,16 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>BroadcastData()
 : <a class="el" href="class_poke.html#a068a4cad41abfeea5d66fba4be5a9d3c">Poke</a>
 </li>
+<li>buf2str()
+: <a class="el" href="class_location.html#ae6a03d527da12622ef7878d3c3e40ae1">Location</a>
+</li>
 </ul>
 
 
 <h3><a class="anchor" id="index_c"></a>- c -</h3><ul>
+<li>callSystem()
+: <a class="el" href="class_motor.html#ab185fe0b043a0771e9f88e367f0ba59e">Motor</a>
+</li>
 <li>Car()
 : <a class="el" href="class_car.html#a1c803f7c5038d3e31b368b0d0a35493c">Car</a>
 </li>
@@ -200,6 +207,9 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>dfsPointValid()
 : <a class="el" href="class_map.html#ad286ddaa6f35f5b39849e82b6e8d2e38">Map</a>
 </li>
+<li>doLoop()
+: <a class="el" href="class_location.html#a546201a5938f52b17a33ec4906c70035">Location</a>
+</li>
 </ul>
 
 
@@ -215,7 +225,10 @@ $(document).ready(function(){initNavTree('functions.html','');});
 
 <h3><a class="anchor" id="index_f"></a>- f -</h3><ul>
 <li>fd
-: <a class="el" href="class_motor.html#abfb91283c23488112845f40ccf7fe1c0">Motor</a>
+: <a class="el" href="class_location.html#a3a813508aa82a4c60e14dc3bc10c15e1">Location</a>
+</li>
+<li>forkThreadForLocation()
+: <a class="el" href="class_car.html#a3da9d0fe517abb96243b60e85c6f6a02">Car</a>
 </li>
 <li>forkThreadForPoke()
 : <a class="el" href="class_car.html#a215b605e4c773a16bc24728ef90cf89f">Car</a>
@@ -241,9 +254,6 @@ $(document).ready(function(){initNavTree('functions.html','');});
 </li>
 <li>getDefaultInterestLifetime()
 : <a class="el" href="class_peek.html#a5d63cb3aa6ef5fa98fb93e0af271c96e">Peek</a>
-</li>
-<li>getDefaultTimeout()
-: <a class="el" href="class_poke.html#a3ff3e7e33ade3f47cb573873c09b1804">Poke</a>
 </li>
 <li>GetInformationFromMemory()
 : <a class="el" href="class_poke.html#a8522495aeff83395ac6bf2d9651acd0b">Poke</a>
@@ -293,11 +303,15 @@ $(document).ready(function(){initNavTree('functions.html','');});
 : <a class="el" href="class_map.html#ae1a999f3ad247761d1c46be23ca93c42">Map</a>
 </li>
 <li>initial()
-: <a class="el" href="class_map.html#ae9f1ee2c013b73136586ca735d73ac02">Map</a>
+: <a class="el" href="class_location.html#a482d5fff2f25826cf975324b8cfb02a9">Location</a>
+, <a class="el" href="class_map.html#ae9f1ee2c013b73136586ca735d73ac02">Map</a>
 , <a class="el" href="class_motor.html#a90b43c3ad5d09f81925e7b6df434c243">Motor</a>
 </li>
 <li>initMatrix()
 : <a class="el" href="class_map.html#ab74b751915087ddd6d195e0714d2495e">Map</a>
+</li>
+<li>insertMap()
+: <a class="el" href="class_location.html#a47fb749d024d5dc6fe06e01733481b0b">Location</a>
 </li>
 <li>int2string()
 : <a class="el" href="class_util.html#a58e0ff6bb277cad91e9a5a372a9eb0a4">Util</a>
@@ -312,7 +326,18 @@ $(document).ready(function(){initNavTree('functions.html','');});
 : <a class="el" href="class_poke.html#a16bdb84a38348aef0317c27fdb5df94b">Poke</a>
 </li>
 <li>isWork()
-: <a class="el" href="class_motor.html#a71dcf0b5cec31e41240917c1046ce097">Motor</a>
+: <a class="el" href="class_location.html#afd95ea87b2f0595768bf906da0262fd4">Location</a>
+, <a class="el" href="class_motor.html#a71dcf0b5cec31e41240917c1046ce097">Motor</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_l"></a>- l -</h3><ul>
+<li>Location()
+: <a class="el" href="class_location.html#a87790c14997fd8cdd12080c78c9794bb">Location</a>
+</li>
+<li>locationThread
+: <a class="el" href="class_car.html#a256d13f7991664de37d1a4c84790c1c4">Car</a>
 </li>
 </ul>
 
@@ -360,6 +385,7 @@ $(document).ready(function(){initNavTree('functions.html','');});
 </li>
 <li>m_map
 : <a class="el" href="class_car.html#a8899bccc5eae0cab6be9e5de2be30a14">Car</a>
+, <a class="el" href="class_location.html#af4efbf313b2ba17b1c5fb12c0ab6be9b">Location</a>
 </li>
 <li>m_maxSuffixComponents
 : <a class="el" href="class_peek.html#a2fe7c35efb8d9a3996dddd6f2d8127d5">Peek</a>
@@ -462,7 +488,7 @@ $(document).ready(function(){initNavTree('functions.html','');});
 : <a class="el" href="class_car.html#a1c8700ab28e036200416baafaa27127b">Car</a>
 </li>
 <li>portname
-: <a class="el" href="class_motor.html#a68b2e367c0b7d2dc820d98651cc2dad1">Motor</a>
+: <a class="el" href="class_location.html#a33c22e0499a1b10481c0c0cc657496d4">Location</a>
 </li>
 <li>printMap()
 : <a class="el" href="class_map.html#a1cefc1b8ed6692667e2019f64acc0f5a">Map</a>
@@ -485,8 +511,11 @@ $(document).ready(function(){initNavTree('functions.html','');});
 
 
 <h3><a class="anchor" id="index_s"></a>- s -</h3><ul>
+<li>searchMap()
+: <a class="el" href="class_location.html#a3c5b2b4db9fa831a6b2c8ceaad799817">Location</a>
+</li>
 <li>setBlocking()
-: <a class="el" href="class_motor.html#a43dc6cec263b15365bafbd5fc25d70b6">Motor</a>
+: <a class="el" href="class_location.html#a8deb294efc3425af8cb7ce8d2150cce0">Location</a>
 </li>
 <li>setCurrentDirection()
 : <a class="el" href="class_map.html#af951fc3984234043a8ddb9f66897cad9">Map</a>
@@ -507,7 +536,7 @@ $(document).ready(function(){initNavTree('functions.html','');});
 : <a class="el" href="class_peek.html#a42e9ff2fde9733c54827753192de0add">Peek</a>
 </li>
 <li>setInterfaceAttribs()
-: <a class="el" href="class_motor.html#a501fb51365e88d471afa95e9b41197c4">Motor</a>
+: <a class="el" href="class_location.html#a6a3b338ca0647987d5ab23d58e39371a">Location</a>
 </li>
 <li>setLastAsFinalBlockId()
 : <a class="el" href="class_poke.html#a1fa757e36c613a6ef9ec05c00f8c3608">Poke</a>
@@ -540,6 +569,9 @@ $(document).ready(function(){initNavTree('functions.html','');});
 </li>
 <li>setUseDigestSha256()
 : <a class="el" href="class_poke.html#ae1423fc10c8451ed64eed96fefcc04ff">Poke</a>
+</li>
+<li>startLocation
+: <a class="el" href="class_car.html#ae52c2348e486d936d66aa7aa26302a69">Car</a>
 </li>
 <li>startPeek()
 : <a class="el" href="class_car.html#a4e95a61006db8ebdb15541e761868a3a">Car</a>
@@ -598,7 +630,8 @@ $(document).ready(function(){initNavTree('functions.html','');});
 
 <h3><a class="anchor" id="index_w"></a>- w -</h3><ul>
 <li>work
-: <a class="el" href="class_motor.html#a6197d8809b86f77b343d3a2ec5e757d0">Motor</a>
+: <a class="el" href="class_location.html#adb48f5b63e704aa33b782ac13ec10dd5">Location</a>
+, <a class="el" href="class_motor.html#a6197d8809b86f77b343d3a2ec5e757d0">Motor</a>
 </li>
 </ul>
 
@@ -620,6 +653,9 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <h3><a class="anchor" id="index_0x7e"></a>- ~ -</h3><ul>
 <li>~Car()
 : <a class="el" href="class_car.html#a5933bb06e96b159fe339a128abda888a">Car</a>
+</li>
+<li>~Location()
+: <a class="el" href="class_location.html#af5be2c6550bbd96137cbb3144ec3c529">Location</a>
 </li>
 <li>~Map()
 : <a class="el" href="class_map.html#aa403fbe09394ccf39747588f5168e3b2">Map</a>

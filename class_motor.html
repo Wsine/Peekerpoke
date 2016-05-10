@@ -145,22 +145,15 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:a501fb51365e88d471afa95e9b41197c4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_motor.html#a501fb51365e88d471afa95e9b41197c4">setInterfaceAttribs</a> (int <a class="el" href="class_motor.html#abfb91283c23488112845f40ccf7fe1c0">fd</a>, int speed, int parity)</td></tr>
-<tr class="memdesc:a501fb51365e88d471afa95e9b41197c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">setter function for port to NFC  <a href="#a501fb51365e88d471afa95e9b41197c4">More...</a><br /></td></tr>
-<tr class="separator:a501fb51365e88d471afa95e9b41197c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43dc6cec263b15365bafbd5fc25d70b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_motor.html#a43dc6cec263b15365bafbd5fc25d70b6">setBlocking</a> (int <a class="el" href="class_motor.html#abfb91283c23488112845f40ccf7fe1c0">fd</a>, int should_block)</td></tr>
-<tr class="memdesc:a43dc6cec263b15365bafbd5fc25d70b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">setter function for port to NFC  <a href="#a43dc6cec263b15365bafbd5fc25d70b6">More...</a><br /></td></tr>
-<tr class="separator:a43dc6cec263b15365bafbd5fc25d70b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90b43c3ad5d09f81925e7b6df434c243"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_motor.html#a90b43c3ad5d09f81925e7b6df434c243">initial</a> ()</td></tr>
 <tr class="memdesc:a90b43c3ad5d09f81925e7b6df434c243"><td class="mdescLeft">&#160;</td><td class="mdescRight">call by constructor  <a href="#a90b43c3ad5d09f81925e7b6df434c243">More...</a><br /></td></tr>
 <tr class="separator:a90b43c3ad5d09f81925e7b6df434c243"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab185fe0b043a0771e9f88e367f0ba59e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_motor.html#ab185fe0b043a0771e9f88e367f0ba59e">callSystem</a> (const string &amp;s)</td></tr>
+<tr class="memdesc:ab185fe0b043a0771e9f88e367f0ba59e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exec system command and return result.  <a href="#ab185fe0b043a0771e9f88e367f0ba59e">More...</a><br /></td></tr>
+<tr class="separator:ab185fe0b043a0771e9f88e367f0ba59e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a68b2e367c0b7d2dc820d98651cc2dad1"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_motor.html#a68b2e367c0b7d2dc820d98651cc2dad1">portname</a></td></tr>
-<tr class="separator:a68b2e367c0b7d2dc820d98651cc2dad1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abfb91283c23488112845f40ccf7fe1c0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_motor.html#abfb91283c23488112845f40ccf7fe1c0">fd</a></td></tr>
-<tr class="separator:abfb91283c23488112845f40ccf7fe1c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6197d8809b86f77b343d3a2ec5e757d0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_motor.html#a6197d8809b86f77b343d3a2ec5e757d0">work</a></td></tr>
 <tr class="separator:a6197d8809b86f77b343d3a2ec5e757d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -179,7 +172,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Default constructor of class <a class="el" href="class_motor.html">Motor</a>. </p>
-<p>Open the port to NFC, call function <a class="el" href="class_motor.html#a90b43c3ad5d09f81925e7b6df434c243" title="call by constructor ">initial()</a> </p>
+<p>Call function <a class="el" href="class_motor.html#a90b43c3ad5d09f81925e7b6df434c243" title="call by constructor ">initial()</a> </p>
 
 </div>
 </div>
@@ -199,6 +192,35 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="ab185fe0b043a0771e9f88e367f0ba59e"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Motor::callSystem </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>s</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Exec system command and return result. </p>
+<dl class="section return"><dt>Returns</dt><dd>true - successfully </dd>
+<dd>
+false - otherwise </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a61e069977db146fef058d1d19c515ffb"></a>
 <div class="memitem">
 <div class="memproto">
@@ -258,101 +280,6 @@ Private Attributes</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>true - can work </dd>
 <dd>
 false - otherwise </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a43dc6cec263b15365bafbd5fc25d70b6"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Motor::setBlocking </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>fd</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>should_block</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>setter function for port to NFC </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fd</td><td>port open return value </td></tr>
-    <tr><td class="paramname">should_block</td><td>whether the post should be block </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>error code </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a501fb51365e88d471afa95e9b41197c4"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int Motor::setInterfaceAttribs </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>fd</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>speed</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>parity</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>setter function for port to NFC </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fd</td><td>port open return value </td></tr>
-    <tr><td class="paramname">speed</td><td>communicate speed </td></tr>
-    <tr><td class="paramname">parity</td><td>if parity set 0 </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>error code </dd></dl>
 
 </div>
 </div>
@@ -425,46 +352,6 @@ false - otherwise </dd></dl>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="abfb91283c23488112845f40ccf7fe1c0"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int Motor::fd</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a68b2e367c0b7d2dc820d98651cc2dad1"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">char* Motor::portname</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="a6197d8809b86f77b343d3a2ec5e757d0"></a>
 <div class="memitem">
 <div class="memproto">
